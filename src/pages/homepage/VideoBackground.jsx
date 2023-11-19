@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import './VideoBackground.css';
+import { Link } from 'react-router-dom';
 
 const VideoBackground = () => {
   const videoRef = useRef(null);
@@ -26,9 +27,11 @@ const VideoBackground = () => {
           RENT THE <span className="text-orange-500">CAR</span> OF YOUR DREAMS
           TODAY
         </h1>
-        <button className="bg-orange-500 px-8 hover:bg-orange-400 py-2 shadow-lg rounded text-white font-medium">
-          Login
-        </button>
+        <Link to="/login">
+          <button className="bg-orange-500 px-8 hover:bg-orange-400 py-2 shadow-lg rounded text-white font-medium">
+            Login
+          </button>
+        </Link>
       </div>
     </div>
   );

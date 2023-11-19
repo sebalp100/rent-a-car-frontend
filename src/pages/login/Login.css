@@ -1,0 +1,10 @@
+.image-background {
+  width: 50%;
+  height: 100vh;
+  background-image: url('images/loginback.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
