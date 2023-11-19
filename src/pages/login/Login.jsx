@@ -1,8 +1,64 @@
 import { Link } from 'react-router-dom';
 import './Login.css';
 import { MdEmail, MdLock } from 'react-icons/md';
+import { useState } from 'react';
+import CryptoJS from 'crypto-js';
+import axios from 'axios';
 
 const Login = () => {
+  const [email, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const encryptData = (data, key) => {
+    const encrypted = CryptoJS.AES.encrypt(JSON.stringify(data), key);
+    return encrypted.toString();
+  };
+
+  const decryptData = (encryptedData, key) => {
+    const bytes = CryptoJS.AES.decrypt(encryptedData, key);
+    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    return decryptedData;
+  };
+
+  const key = import.meta.env.VITE_MY_SECRET_KEY;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    axios
+      .post(
+        `http://localhost:3001/login`,
+        {
+          user: {
+            email: email,
+            password: password,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          mode: 'cors',
+        }
+      )
+      .then((response) => {
+        const token = response.headers['authorization']?.split(' ')[1];
+        const name = 'test3';
+        const user = { token, name };
+
+        const encryptedUserData = encryptData(user, key);
+        console.log('Encrypted Data:', encryptedUserData);
+        localStorage.setItem('Rentacar', encryptedUserData);
+
+        const storedEncryptedData = localStorage.getItem('Rentacar');
+        const decryptedUserData = decryptData(storedEncryptedData, key);
+        console.log('Decrypted Data:', decryptedUserData);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <div className="flex">
       <div className="image-background hidden lg:block"></div>
@@ -13,19 +69,24 @@ const Login = () => {
           className="w-[50%] mb-[10rem] mt-28 lg:mt-0"
         />
         <div className="flex flex-col justify-center items-center">
-          <form className="bg-white lg:w-[32vw] px-8 rounded-lg w-[80vw] sm:w-[60vw]">
+          <form
+            onSubmit={handleSubmit}
+            className="bg-white lg:w-[32vw] px-8 rounded-lg w-[80vw] sm:w-[60vw]"
+          >
             <div className="mb-4 relative">
               <label
                 className="block text-gray-700 text-[1rem] font-medium mb-2"
-                htmlFor="username"
+                htmlFor="email"
               >
                 Email
               </label>
               <input
                 type="text"
-                id="username"
+                id="email"
+                value={email}
+                onChange={(e) => setUsername(e.target.value)}
                 className="w-full shadow text-sm border rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                placeholder="Enter your username"
+                placeholder="Enter your email"
                 autoComplete="off"
                 required
               />
@@ -41,6 +102,8 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                 placeholder="6+ Characters, 1 Capital letter"
                 required
