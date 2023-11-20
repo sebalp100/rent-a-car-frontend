@@ -1,37 +1,27 @@
 import { Link } from 'react-router-dom';
-import './Login.css';
 import { MdEmail, MdLock } from 'react-icons/md';
+import { FaAddressCard } from 'react-icons/fa';
 import { useState } from 'react';
-import CryptoJS from 'crypto-js';
+import './SignUp.css';
 import axios from 'axios';
 
-const Login = () => {
+const SignUp = () => {
   const [email, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-
-  const encryptData = (data, key) => {
-    const encrypted = CryptoJS.AES.encrypt(JSON.stringify(data), key);
-    return encrypted.toString();
-  };
-
-  const decryptData = (encryptedData, key) => {
-    const bytes = CryptoJS.AES.decrypt(encryptedData, key);
-    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    return decryptedData;
-  };
-
-  const key = import.meta.env.VITE_MY_SECRET_KEY;
+  const [confirmpassword, setConfirmPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     axios
       .post(
-        `http://localhost:3001/login`,
+        `http://localhost:3001/signup`,
         {
           user: {
             email: email,
             password: password,
+            name: name,
           },
         },
         {
@@ -41,18 +31,8 @@ const Login = () => {
           mode: 'cors',
         }
       )
-      .then((response) => {
-        const token = response.headers['authorization']?.split(' ')[1];
-        const name = 'test3';
-        const user = { token, name };
-
-        const encryptedUserData = encryptData(user, key);
-        console.log('Encrypted Data:', encryptedUserData);
-        localStorage.setItem('Rentacar', encryptedUserData);
-
-        const storedEncryptedData = localStorage.getItem('Rentacar');
-        const decryptedUserData = decryptData(storedEncryptedData, key);
-        console.log('Decrypted Data:', decryptedUserData);
+      .then(() => {
+        console.log('Registration succesfull');
       })
       .catch((error) => {
         console.error(error);
@@ -61,12 +41,12 @@ const Login = () => {
 
   return (
     <div className="flex">
-      <div className="image-background hidden lg:block"></div>
+      <div className="image-background2 hidden lg:block"></div>
       <div className="lg:w-[50%] flex flex-col items-center justify-center">
         <img
           src="images/logo2.png"
           alt="Logo"
-          className="w-[50%] mb-[10rem] mt-28 lg:mt-0"
+          className="w-[50%] mb-[4rem] mt-28 lg:mt-0"
         />
         <div className="flex flex-col justify-center items-center">
           <form
@@ -81,7 +61,7 @@ const Login = () => {
                 Email
               </label>
               <input
-                type="text"
+                type="email"
                 id="email"
                 value={email}
                 onChange={(e) => setUsername(e.target.value)}
@@ -91,6 +71,25 @@ const Login = () => {
                 required
               />
               <MdEmail className="h-5 w-5 absolute right-4 top-[73%] transform -translate-y-1/2"></MdEmail>
+            </div>
+            <div className="mb-4 relative">
+              <label
+                className="block text-gray-700 text-[1rem] font-medium mb-2"
+                htmlFor="name"
+              >
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full shadow text-sm border rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                placeholder="Enter your name"
+                autoComplete="off"
+                required
+              />
+              <FaAddressCard className="h-5 w-5 absolute right-4 top-[73%] transform -translate-y-1/2"></FaAddressCard>
             </div>
             <div className="mb-4 relative">
               <label
@@ -110,24 +109,38 @@ const Login = () => {
               />
               <MdLock className="h-5 w-5 absolute right-4 top-[73%] transform -translate-y-1/2"></MdLock>
             </div>
-
-            <span className="text-sm font-satoshi flex font-normal blue-text justify-end mb-2">
-              Forgot Password?
-            </span>
+            <div className="mb-4 relative">
+              <label
+                className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
+                htmlFor="confirmpassword"
+              >
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                id="confirmpassword"
+                value={confirmpassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                placeholder="6+ Characters, 1 Capital letter"
+                required
+              />
+              <MdLock className="h-5 w-5 absolute right-4 top-[73%] transform -translate-y-1/2"></MdLock>
+            </div>
             <div className="flex items-center justify-between">
               <button
                 type="submit"
                 className=" text-white bg-orange-500 mt-4 w-full py-[0.7rem] shadow font-medium px-4 rounded-md hover:bg-orange-400 focus:outline-none focus:bg-orange-400"
               >
-                Sign In
+                Sign Up
               </button>
             </div>
           </form>
           <span className="text-sm font-satoshi flex gap-2 justify-center font-bold mt-6">
-            Don´t have an account?{' '}
-            <Link to="/signup">
+            Already have an account?{' '}
+            <Link to="/login">
               <p className="text-sm font-medium flex text-orange-500">
-                Sign Up
+                Sign In
               </p>
             </Link>
           </span>
@@ -137,4 +150,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
