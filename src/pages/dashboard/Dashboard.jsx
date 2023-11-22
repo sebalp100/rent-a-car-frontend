@@ -6,8 +6,9 @@ import { GiPathDistance } from 'react-icons/gi';
 import { IoMdSettings } from 'react-icons/io';
 import { FaCubes } from 'react-icons/fa';
 
-const Dashboard = () => {
+const Dashboard = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
+  const email = user?.email
 
   const showMenu = () => setSidebar(true);
   const closeMenu = () => setSidebar(false);
@@ -15,7 +16,7 @@ const Dashboard = () => {
     <div className="flex">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
-        <TopBar></TopBar>
+        <TopBar email={email}></TopBar>
         <div className="flex h-[80vh] justify-between pt-10 flex-col items-center">
           <h1 className="pb-7 text-3xl font-medium">
             FEATURED <span className="text-orange-500">CARS</span>

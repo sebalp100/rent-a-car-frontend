@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 import { MdEmail, MdLock } from 'react-icons/md';
 import { useState } from 'react';
@@ -9,15 +9,11 @@ const Login = () => {
   const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigate = useNavigate();
+
   const encryptData = (data, key) => {
     const encrypted = CryptoJS.AES.encrypt(JSON.stringify(data), key);
     return encrypted.toString();
-  };
-
-  const decryptData = (encryptedData, key) => {
-    const bytes = CryptoJS.AES.decrypt(encryptedData, key);
-    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    return decryptedData;
   };
 
   const key = import.meta.env.VITE_MY_SECRET_KEY;
@@ -44,15 +40,15 @@ const Login = () => {
       .then((response) => {
         const token = response.headers['authorization']?.split(' ')[1];
         const name = 'test3';
-        const user = { token, name };
+        const { id, email } = response.data.data;
+        const user = { id, email, token, name };
+        console.log(user);
 
         const encryptedUserData = encryptData(user, key);
         console.log('Encrypted Data:', encryptedUserData);
         localStorage.setItem('Rentacar', encryptedUserData);
 
-        const storedEncryptedData = localStorage.getItem('Rentacar');
-        const decryptedUserData = decryptData(storedEncryptedData, key);
-        console.log('Decrypted Data:', decryptedUserData);
+        navigate('/dashboard');
       })
       .catch((error) => {
         console.error(error);

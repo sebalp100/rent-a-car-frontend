@@ -41,7 +41,7 @@ const SideNav = (props) => {
         <ul className="side-link ">
           <NavLink
             to="/dashboard"
-            className="flex cursor-pointer items-center py-[0.4rem] pl-2 sidebar-item gap-2 font-medium menu-item-name  rounded-sm"
+            className="flex cursor-pointer hover:text-white items-center py-[0.4rem] pl-2 sidebar-item gap-2 font-medium menu-item-name  rounded-sm"
           >
             <MdHome className="text-2xl"></MdHome>
             <p className="menu-links-text">Home</p>
