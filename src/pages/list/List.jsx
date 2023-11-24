@@ -4,7 +4,7 @@ import SideNav from '../dashboard/SideNav';
 import { brands } from './CarList';
 import './CarList.css';
 
-const CarList = ({ user }) => {
+const  CarList = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
   const email = user?.email;
 

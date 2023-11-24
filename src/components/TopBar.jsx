@@ -2,6 +2,7 @@ import { BsBell } from 'react-icons/bs';
 import { FaUserCircle } from 'react-icons/fa';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import CryptoJS from 'crypto-js';
+import { Link } from 'react-router-dom';
 
 const TopBar = ({ email }) => {
   const decryptData = (encryptedData, key) => {
@@ -19,6 +20,7 @@ const TopBar = ({ email }) => {
   const storedEncryptedData = localStorage.getItem('Rentacar');
   const decryptedUserData = decryptData(storedEncryptedData, key);
   const email2 = decryptedUserData?.email;
+  const profilePic = decryptedUserData?.avatar_url;
 
   return (
     <div className="flex justify-end items-center h-14 w-full shadow">
@@ -31,8 +33,25 @@ const TopBar = ({ email }) => {
             className="pl-2 border-2 border-slate-800"
           />
         </div>
-        <p className="text-sm">{email || email2}</p>
-        <FaUserCircle className="text-3xl"></FaUserCircle>
+        {email2 ? (
+          <p className="text-sm">{email2}</p>
+        ) : (
+          <Link to="/login">
+            <button className="bg-orange-400 hover:bg-orange-300 rounded px-6 py-1 text-white font-medium">
+              Login
+            </button>
+          </Link>
+        )}
+        {profilePic ? (
+          <img
+            src={`http://localhost:3001${profilePic}`}
+            alt="Profile picture"
+            className="h-8 w-8"
+          />
+        ) : (
+          <FaUserCircle className="text-3xl"></FaUserCircle>
+        )}
+
         <BsBell className="text-lg"></BsBell>
       </div>
     </div>

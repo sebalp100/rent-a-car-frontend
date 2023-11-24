@@ -10,27 +10,25 @@ const SignUp = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmpassword, setConfirmPassword] = useState('');
+  const [avatar, setAvatar] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    formData.append('user[email]', email);
+    formData.append('user[name]', name);
+    formData.append('user[role]', 'client');
+    formData.append('user[password]', password);
+    formData.append('user[avatar]', avatar); //
+
     axios
-      .post(
-        `http://localhost:3001/signup`,
-        {
-          user: {
-            email: email,
-            password: password,
-            name: name,
-          },
+      .post(`http://localhost:3001/signup`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          mode: 'cors',
-        }
-      )
+        mode: 'cors',
+      })
       .then(() => {
         console.log('Registration succesfull');
       })
@@ -123,6 +121,23 @@ const SignUp = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                 placeholder="6+ Characters, 1 Capital letter"
+                required
+              />
+              <MdLock className="h-5 w-5 absolute right-4 top-[73%] transform -translate-y-1/2"></MdLock>
+            </div>
+            <div className="mb-4 relative">
+              <label
+                className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
+                htmlFor="awatar"
+              >
+                Profile picture
+              </label>
+              <input
+                type="file"
+                id="avatar"
+                onChange={(e) => setAvatar(e.target.files[0])}
+                className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                placeholder="Choose a picture"
                 required
               />
               <MdLock className="h-5 w-5 absolute right-4 top-[73%] transform -translate-y-1/2"></MdLock>

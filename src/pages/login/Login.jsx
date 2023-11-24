@@ -39,13 +39,11 @@ const Login = () => {
       )
       .then((response) => {
         const token = response.headers['authorization']?.split(' ')[1];
-        const name = 'test3';
-        const { id, email } = response.data.data;
-        const user = { id, email, token, name };
+        const { id, email, name, role, avatar_url } = response.data.data;
+        const user = { id, email, token, name, role, avatar_url };
         console.log(user);
 
         const encryptedUserData = encryptData(user, key);
-        console.log('Encrypted Data:', encryptedUserData);
         localStorage.setItem('Rentacar', encryptedUserData);
 
         navigate('/dashboard');

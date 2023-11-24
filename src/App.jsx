@@ -8,7 +8,7 @@ import Login from './pages/login/Login';
 import SignUp from './pages/signup/SignUp';
 import Dashboard from './pages/dashboard/Dashboard';
 import CryptoJS from 'crypto-js';
-import CarList from './pages/list/CarList';
+import CarList from './pages/list/List';
 
 function App() {
   const decryptData = (encryptedData, key) => {
