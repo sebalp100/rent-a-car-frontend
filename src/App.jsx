@@ -9,6 +9,8 @@ import SignUp from './pages/signup/SignUp';
 import Dashboard from './pages/dashboard/Dashboard';
 import CryptoJS from 'crypto-js';
 import CarList from './pages/list/List';
+import AddCar from './pages/add_car/AddCar';
+import DeleteCar from './pages/delete_car/DeleteCar';
 
 function App() {
   const decryptData = (encryptedData, key) => {
@@ -38,6 +40,11 @@ function App() {
             element={<Dashboard user={decryptedUserData} />}
           />
           <Route path="/list" element={<CarList user={decryptedUserData} />} />
+          <Route path="/add" element={<AddCar user={decryptedUserData} />} />
+          <Route
+            path="/remove"
+            element={<DeleteCar user={decryptedUserData} />}
+          />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Route>

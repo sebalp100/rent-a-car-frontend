@@ -18,7 +18,7 @@ const SignUp = () => {
     const formData = new FormData();
     formData.append('user[email]', email);
     formData.append('user[name]', name);
-    formData.append('user[role]', 'client');
+    formData.append('user[role]', 'admin');
     formData.append('user[password]', password);
     formData.append('user[avatar]', avatar); //
 
@@ -140,7 +140,6 @@ const SignUp = () => {
                 placeholder="Choose a picture"
                 required
               />
-              <MdLock className="h-5 w-5 absolute right-4 top-[73%] transform -translate-y-1/2"></MdLock>
             </div>
             <div className="flex items-center justify-between">
               <button

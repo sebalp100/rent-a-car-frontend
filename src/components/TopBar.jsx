@@ -46,7 +46,7 @@ const TopBar = ({ email }) => {
           <img
             src={`http://localhost:3001${profilePic}`}
             alt="Profile picture"
-            className="h-8 w-8"
+            className="h-8 w-8 rounded-[50%] object-cover"
           />
         ) : (
           <FaUserCircle className="text-3xl"></FaUserCircle>

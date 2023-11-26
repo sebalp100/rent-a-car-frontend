@@ -3,10 +3,15 @@ import TopBar from '../../components/TopBar';
 import SideNav from '../dashboard/SideNav';
 import { brands } from './CarList';
 import './CarList.css';
+import { useGetCarsQuery } from '../../api/authApi';
 
-const  CarList = ({ user }) => {
+const CarList = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
+  const token = user?.token;
   const email = user?.email;
+
+  const { data: cars, isLoading } = useGetCarsQuery(token);
+  console.log(cars);
 
   const showMenu = () => setSidebar(true);
   const closeMenu = () => setSidebar(false);
