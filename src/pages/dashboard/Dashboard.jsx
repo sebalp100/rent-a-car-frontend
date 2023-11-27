@@ -6,6 +6,7 @@ import { GiPathDistance } from 'react-icons/gi';
 import { IoMdSettings } from 'react-icons/io';
 import { FaCubes } from 'react-icons/fa';
 import { useGetFeaturedQuery } from '../../api/authApi';
+import { Link } from 'react-router-dom';
 
 const Dashboard = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
@@ -76,9 +77,11 @@ const Dashboard = ({ user }) => {
               </div>
             )}
           </div>
-          <button className="rounded py-2 px-4 font-medium mt-4 bg-orange-500 text-white hover:bg-orange-400">
-            SHOW ALL
-          </button>
+          <Link to="/list">
+            <button className="rounded py-2 px-4 font-medium mt-4 bg-orange-500 text-white hover:bg-orange-400">
+              SEE ALL
+            </button>
+          </Link>
         </div>
       </div>
     </div>

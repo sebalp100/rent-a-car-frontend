@@ -1,17 +1,14 @@
 import { useState } from 'react';
 import TopBar from '../../components/TopBar';
 import SideNav from '../dashboard/SideNav';
-import { brands } from './CarList';
 import './CarList.css';
-import { useGetCarsQuery } from '../../api/authApi';
+import { useGetBrandsQuery } from '../../api/authApi';
 
 const CarList = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
   const token = user?.token;
   const email = user?.email;
-
-  const { data: cars, isLoading } = useGetCarsQuery(token);
-  console.log(cars);
+  const { data: brands } = useGetBrandsQuery(token);
 
   const showMenu = () => setSidebar(true);
   const closeMenu = () => setSidebar(false);
@@ -22,14 +19,14 @@ const CarList = ({ user }) => {
         <TopBar email={email}></TopBar>
         <div className="flex justify-center pt-7 pb-7">
           <div className="flex flex-wrap justify-center gap-10">
-            {brands.map((brand, index) => (
+            {brands.map((brand) => (
               <div
                 className="flex flex-col justify-center h-80 relative polaroid items-center w-[20rem]"
-                key={index}
+                key={brand.id}
               >
                 <div>
                   <img
-                    src={brand.logo}
+                    src={`http://localhost:3001${brand.photo_url}`}
                     alt={`${brand.name} Logo`}
                     className="p-5"
                   />

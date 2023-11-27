@@ -6,6 +6,7 @@ import {
   MdDirectionsCarFilled,
   MdAssignment,
   MdSettings,
+  MdCopyright,
 } from 'react-icons/md';
 import { CiLogout } from 'react-icons/ci';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
@@ -73,6 +74,13 @@ const SideNav = (props) => {
           >
             <MdCarCrash className="text-2xl menu-links-text"></MdCarCrash>
             <p className="menu-links-text">Remove Car</p>
+          </NavLink>
+          <NavLink
+            to="/brands"
+            className="flex cursor-pointer hover:text-white items-center py-[0.4rem] pl-2 sidebar-item gap-2 font-medium menu-item-name rounded-sm"
+          >
+            <MdCopyright className="text-2xl menu-links-text"></MdCopyright>
+            <p className="menu-links-text">Brands</p>
           </NavLink>
           <NavLink
             to="/settings"

@@ -11,6 +11,7 @@ import CryptoJS from 'crypto-js';
 import CarList from './pages/list/List';
 import AddCar from './pages/add_car/AddCar';
 import DeleteCar from './pages/delete_car/DeleteCar';
+import Brands from './pages/brands/Brands';
 
 function App() {
   const decryptData = (encryptedData, key) => {
@@ -45,6 +46,7 @@ function App() {
             path="/remove"
             element={<DeleteCar user={decryptedUserData} />}
           />
+          <Route path="/brands" element={<Brands user={decryptedUserData} />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Route>

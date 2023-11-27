@@ -66,7 +66,18 @@ export const authLog = createApi({
         }),
       invalidatesTags: ['Cars'],
     }),
+    deleteBrand: builder.mutation({
+      query: (user) => (
+        {
+          url: `/brands/${user.id}`,
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${user.token}`,
+          },
+        }),
+      invalidatesTags: ['Brands'],
+    }),
   }),
 });
 
-export const { useGetBrandsQuery, useGetCarsQuery, useGetFeaturedQuery, useLoginMutation, useLogoutMutation, useDeleteCarMutation } = authLog;
+export const { useGetBrandsQuery, useGetCarsQuery, useGetFeaturedQuery, useLoginMutation, useLogoutMutation, useDeleteCarMutation, useDeleteBrandMutation } = authLog;
