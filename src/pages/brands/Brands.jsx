@@ -3,11 +3,12 @@ import SideNav from '../dashboard/SideNav';
 import TopBar from '../../components/TopBar';
 import { useDeleteBrandMutation, useGetBrandsQuery } from '../../api/authApi';
 import { FaTrashAlt, FaEdit, FaRegWindowClose } from 'react-icons/fa';
+import axios from 'axios';
 
 const Brands = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState(null);
-  const [selectedBrandName, setSelectedBrandName] = useState(null);
+  const [photo, setPhoto] = useState(null);
   const token = user?.token;
   const email = user?.email;
 
@@ -17,7 +18,7 @@ const Brands = ({ user }) => {
   const closeMenu = () => setSidebar(false);
 
   const [deleteBrand] = useDeleteBrandMutation();
-  const { data: brands, isLoading } = useGetBrandsQuery(token);
+  const { data: brands, isLoading, refetch } = useGetBrandsQuery(token);
 
   const handleEdit = (brand) => {
     setSelectedBrand(brand.id);
@@ -40,6 +41,30 @@ const Brands = ({ user }) => {
     setEditedName('');
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('brand[name]', editedName);
+    formData.append('brand[photo]', photo);
+
+    axios
+      .put(`http://localhost:3001/brands/${selectedBrand}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+        mode: 'cors',
+      })
+      .then(() => {
+        console.log('Edited succesfully');
+        refetch();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <div className="flex">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
@@ -54,7 +79,7 @@ const Brands = ({ user }) => {
                 <tr>
                   <th className="py-3 px-6 text-left">Name</th>
                   <th className="py-3 px-6 text-left">Image</th>
-                  <th className="py-3 px-6 text-left">Action</th>
+                  <th className="py-3 px-6 text-center">Action</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -67,10 +92,10 @@ const Brands = ({ user }) => {
                       <img
                         src={`http://localhost:3001/${car.photo_url}`}
                         alt={`${car.name} Logo`}
-                        className="w-16 object-cover h-16"
+                        className="w-16 h-16"
                       />
                     </td>
-                    <td className="px-6">
+                    <td className="px-6 flex pt-9 justify-center">
                       <button onClick={() => handleEdit(car)}>
                         <FaEdit className="text-2xl text-blue-600 mr-4 cursor-pointer"></FaEdit>
                       </button>
@@ -88,29 +113,57 @@ const Brands = ({ user }) => {
         {selectedBrand && (
           <div className="fixed inset-0 flex items-center justify-center">
             <div className="modal-overlay fixed inset-0 bg-gray-500 opacity-50"></div>
-            <div className="modal lg:ml-[17%] w-[80%] h-[60%] lg:w-[30%] lg:h-[40%] z-10 bg-white p-6 rounded-lg shadow-lg relative">
+            <div className="modal lg:ml-[17%] w-[80%]  lg:w-[40%] z-10 bg-white p-6 rounded-lg shadow-lg relative">
               <button
                 onClick={handleModalClose}
                 className="absolute top-0 right-0 p-2 hover:text-gray-700"
               >
                 <FaRegWindowClose className="text-xl" />
               </button>
-              <h2 className="text-2xl font-bold mb-4">Edit Brand</h2>
-              <input
-                type="text"
-                value={editedName}
-                onChange={(e) => setEditedName(e.target.value)}
-                className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-              />
+              <form onSubmit={handleSubmit} className="flex flex-col">
+                <h2 className="text-2xl text-center font-bold mb-4">
+                  Edit Brand
+                </h2>
+                <div className="mb-4">
+                  <label
+                    className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
+                    htmlFor="name"
+                  >
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={editedName}
+                    onChange={(e) => setEditedName(e.target.value)}
+                    className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                  />
+                </div>
 
-              <button
-                className="bg-orange-500 text-white px-4 py-2 rounded"
-                onClick={() => {
-                  console.log(editedName);
-                }}
-              >
-                Edit
-              </button>
+                <div className="mb-4">
+                  <label
+                    className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
+                    htmlFor="photo"
+                  >
+                    Photo
+                  </label>
+                  <input
+                    type="file"
+                    id="photo"
+                    onChange={(e) => setPhoto(e.target.files[0])}
+                    className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                    placeholder="Choose a picture"
+                    required
+                  />
+                </div>
+
+                <button
+                  className="bg-orange-500 text-white self-center p-2 px-4 mt-10 py-2 w-20 rounded"
+                  type="submit"
+                >
+                  Edit
+                </button>
+              </form>
             </div>
           </div>
         )}

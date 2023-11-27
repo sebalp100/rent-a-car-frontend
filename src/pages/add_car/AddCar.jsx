@@ -55,7 +55,7 @@ const AddCar = ({ user }) => {
     formData.append('car[mileage]', mileage);
     formData.append('car[price]', price);
     formData.append('car[featured]', featured);
-    formData.append('car[brand_id]', '1');
+    formData.append('car[brand_id]', brand_id);
     formData.append('car[photo]', photo);
 
     axios

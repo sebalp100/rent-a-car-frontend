@@ -8,7 +8,7 @@ const CarList = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
   const token = user?.token;
   const email = user?.email;
-  const { data: brands } = useGetBrandsQuery(token);
+  const { data: brands, isLoading } = useGetBrandsQuery(token);
 
   const showMenu = () => setSidebar(true);
   const closeMenu = () => setSidebar(false);
@@ -19,24 +19,28 @@ const CarList = ({ user }) => {
         <TopBar email={email}></TopBar>
         <div className="flex justify-center pt-7 pb-7">
           <div className="flex flex-wrap justify-center gap-10">
-            {brands.map((brand) => (
-              <div
-                className="flex flex-col justify-center h-80 relative polaroid items-center w-[20rem]"
-                key={brand.id}
-              >
-                <div>
-                  <img
-                    src={`http://localhost:3001${brand.photo_url}`}
-                    alt={`${brand.name} Logo`}
-                    className="p-5"
-                  />
-                </div>
+            {isLoading ? (
+              <p>Loading data...</p>
+            ) : (
+              brands.map((brand) => (
+                <div
+                  className="flex flex-col justify-center h-80 relative polaroid items-center w-[20rem]"
+                  key={brand.id}
+                >
+                  <div>
+                    <img
+                      src={`http://localhost:3001${brand.photo_url}`}
+                      alt={`${brand.name} Logo`}
+                      className="p-5"
+                    />
+                  </div>
 
-                <div className="text-sm absolute bottom-0 font-medium pb-4">
-                  <h3>{brand.name}</h3>
+                  <div className="text-sm absolute bottom-0 font-medium pb-4">
+                    <h3>{brand.name}</h3>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </div>
