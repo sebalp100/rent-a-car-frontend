@@ -6,7 +6,7 @@ import { FaTrashAlt, FaEdit, FaRegWindowClose } from 'react-icons/fa';
 import { MaterialReactTable } from 'material-react-table';
 import axios from 'axios';
 import { Dialog } from '@mui/material';
-import NewBrandModal from './NewBrandModal';
+import NewReservationModal from './NewBrandModal';
 
 const Brands = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
@@ -232,12 +232,12 @@ const Brands = ({ user }) => {
         )}
       </div>
       {open2 && (
-        <NewBrandModal
+        <NewReservationModal
           token={token}
           open2={open2}
           onClose={handleCloseModal}
           refetch={refetch}
-        ></NewBrandModal>
+        ></NewReservationModal>
       )}
     </div>
   );

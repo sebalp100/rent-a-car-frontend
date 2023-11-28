@@ -26,6 +26,26 @@ export const authLog = createApi({
         }),
       providesTags: ['Cars'],
     }),
+    getCarsByBrand: builder.query({
+      query: (brand) => (
+        {
+          url: `/cars?brand_id=${brand.brandId}`,
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${brand.token}`,
+          },
+        }),
+    }),
+    getCarsDetails: builder.query({
+      query: (brand) => (
+        {
+          url: `/cars/${brand.carId}`,
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${brand.token}`,
+          },
+        }),
+    }),
     getFeatured: builder.query({
       query: (authToken) => (
         {
@@ -80,4 +100,4 @@ export const authLog = createApi({
   }),
 });
 
-export const { useGetBrandsQuery, useGetCarsQuery, useGetFeaturedQuery, useLoginMutation, useLogoutMutation, useDeleteCarMutation, useDeleteBrandMutation } = authLog;
+export const { useGetBrandsQuery, useGetCarsQuery, useGetFeaturedQuery, useGetCarsByBrandQuery, useGetCarsDetailsQuery, useLoginMutation, useLogoutMutation, useDeleteCarMutation, useDeleteBrandMutation } = authLog;

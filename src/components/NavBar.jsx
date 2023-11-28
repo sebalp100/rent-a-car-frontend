@@ -17,6 +17,9 @@ const NavBar = () => {
           <Link to="/contact" className="hover:text-orange-500">
             Contact
           </Link>
+          <Link to="/dashboard" className="hover:text-orange-500">
+            Dashboard
+          </Link>
           <Link to="/login">
             <button className="bg-orange-400 hover:bg-orange-300 rounded px-6 py-1 text-white font-medium">
               Login

@@ -21,7 +21,7 @@ const SideNav = (props) => {
 
   return (
     <div
-      className={`h-screen w-2/12 flex flex-col border-r-2 border-slate-100 bg-white justify-start fixed items-center sidebar-dashboard ${
+      className={`h-screen w-[16.9%] flex flex-col border-r-2 border-slate-100 bg-white justify-start fixed items-center sidebar-dashboard ${
         props.sidebar ? 'show' : ''
       }`}
     >

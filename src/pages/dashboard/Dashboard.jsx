@@ -32,47 +32,49 @@ const Dashboard = ({ user }) => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {featuredCars.map((car) => (
-                  <div key={car.id} className="card shadow-md">
-                    <div className="image-container">
-                      {car.photo_url ? (
-                        <img
-                          src={`http://localhost:3001/${car.photo_url}`}
-                          alt="Card Image"
-                          className="card-image"
-                        />
-                      ) : (
-                        <div className="no-image-placeholder">
-                          No Image Available
-                        </div>
-                      )}
-                    </div>
-                    <div className="card-content">
-                      <h3>{car.name}</h3>{' '}
-                      <h3 className="text-orange-500 font-medium text-lg">
-                        ${car.price}
-                      </h3>{' '}
-                      <p className="text-sm pb-4">{car.description}</p>{' '}
-                      <div className="grid grid-cols-2">
-                        <div className="flex gap-2 items-center">
-                          <BsSpeedometer2 className="text-lg" />
-                          <p>{car.top_speed} Km/h</p>{' '}
-                        </div>
+                  <Link key={car.id} to={`/list/car/${car.id}`}>
+                    <div key={car.id} className="card shadow-md">
+                      <div className="image-container">
+                        {car.photo_url ? (
+                          <img
+                            src={`http://localhost:3001/${car.photo_url}`}
+                            alt="Card Image"
+                            className="card-image"
+                          />
+                        ) : (
+                          <div className="no-image-placeholder">
+                            No Image Available
+                          </div>
+                        )}
+                      </div>
+                      <div className="card-content">
+                        <h3>{car.name}</h3>{' '}
+                        <h3 className="text-orange-500 font-medium text-lg">
+                          ${car.price}
+                        </h3>{' '}
+                        <p className="text-sm pb-4">{car.description}</p>{' '}
+                        <div className="grid grid-cols-2">
+                          <div className="flex gap-2 items-center">
+                            <BsSpeedometer2 className="text-lg" />
+                            <p>{car.top_speed} Km/h</p>{' '}
+                          </div>
 
-                        <div className="flex gap-2 items-center">
-                          <GiPathDistance className="text-xl" />
-                          <p>{car.mileage} Km</p>{' '}
-                        </div>
-                        <div className="flex gap-2 items-center">
-                          <IoMdSettings className="text-xl" />
-                          <p>{car.engine}</p>{' '}
-                        </div>
-                        <div className="flex gap-2 items-center">
-                          <FaCubes className="text-lg" />
-                          <p>{car.cc}</p>{' '}
+                          <div className="flex gap-2 items-center">
+                            <GiPathDistance className="text-xl" />
+                            <p>{car.mileage} Km</p>{' '}
+                          </div>
+                          <div className="flex gap-2 items-center">
+                            <IoMdSettings className="text-xl" />
+                            <p>{car.engine}</p>{' '}
+                          </div>
+                          <div className="flex gap-2 items-center">
+                            <FaCubes className="text-lg" />
+                            <p>{car.cc}</p>{' '}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}
