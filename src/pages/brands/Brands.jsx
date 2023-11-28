@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import SideNav from '../dashboard/SideNav';
 import TopBar from '../../components/TopBar';
 import { useDeleteBrandMutation, useGetBrandsQuery } from '../../api/authApi';
 import { FaTrashAlt, FaEdit, FaRegWindowClose } from 'react-icons/fa';
+import { MaterialReactTable } from 'material-react-table';
 import axios from 'axios';
+import { Dialog } from '@mui/material';
 
 const Brands = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
@@ -13,6 +15,7 @@ const Brands = ({ user }) => {
   const email = user?.email;
 
   const [editedName, setEditedName] = useState('');
+  const [open, setOpen] = useState(false);
 
   const showMenu = () => setSidebar(true);
   const closeMenu = () => setSidebar(false);
@@ -21,6 +24,7 @@ const Brands = ({ user }) => {
   const { data: brands, isLoading, refetch } = useGetBrandsQuery(token);
 
   const handleEdit = (brand) => {
+    setOpen(true);
     setSelectedBrand(brand.id);
     setEditedName(brand.name);
     console.log(brand);
@@ -39,6 +43,7 @@ const Brands = ({ user }) => {
   const handleModalClose = () => {
     setSelectedBrand(null);
     setEditedName('');
+    setOpen(false);
   };
 
   const handleSubmit = async (e) => {
@@ -63,108 +68,155 @@ const Brands = ({ user }) => {
       .catch((error) => {
         console.error(error);
       });
+
+    setOpen(false);
   };
+
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: 'id',
+        header: 'ID',
+        minSize: 100,
+      },
+      {
+        accessorKey: 'name',
+        header: 'Name',
+        minSize: 150,
+      },
+      {
+        accessorKey: 'photo_url',
+        header: 'Picture',
+        minSize: 200,
+        Cell: ({ cell, row }) => {
+          const carPic = cell.getValue();
+          const carName = row.getValue('name');
+
+          return (
+            <div className="flex gap-1">
+              <img
+                src={`http://localhost:3001/${carPic}`}
+                alt={`${carName} Logo`}
+                className="w-16 h-16"
+              />
+            </div>
+          );
+        },
+      },
+      {
+        accessorKey: 'action',
+        header: 'Action',
+        muiTableHeadCellProps: {
+          align: 'center',
+        },
+        minSize: 150,
+        Cell: ({ row }) => {
+          const carID = row.getValue('id');
+
+          return (
+            <div className="flex justify-center">
+              <button onClick={() => handleEdit(row.original)}>
+                <FaEdit className="text-2xl text-blue-600 mr-4 cursor-pointer"></FaEdit>
+              </button>
+              <button onClick={() => handleDelete(carID)}>
+                <FaTrashAlt className="text-2xl text-red-600 cursor-pointer"></FaTrashAlt>
+              </button>
+            </div>
+          );
+        },
+      },
+    ],
+    []
+  );
 
   return (
     <div className="flex">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
-        <div className="flex justify-center pt-7 pb-7">
-          {isLoading ? (
-            <p>Loading list...</p>
-          ) : (
-            <table className="w-[80%] border shadow-md border-slate-300 divide-y divide-gray-200">
-              <thead>
-                <tr>
-                  <th className="py-3 px-6 text-left">Name</th>
-                  <th className="py-3 px-6 text-left">Image</th>
-                  <th className="py-3 px-6 text-center">Action</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {brands.map((car) => (
-                  <tr key={car.id}>
-                    <td className="py-4 px-6 text-sm font-medium">
-                      <h3>{car.name}</h3>
-                    </td>
-                    <td className="py-4 px-6">
-                      <img
-                        src={`http://localhost:3001/${car.photo_url}`}
-                        alt={`${car.name} Logo`}
-                        className="w-16 h-16"
-                      />
-                    </td>
-                    <td className="px-6 flex pt-9 justify-center">
-                      <button onClick={() => handleEdit(car)}>
-                        <FaEdit className="text-2xl text-blue-600 mr-4 cursor-pointer"></FaEdit>
-                      </button>
-                      <button onClick={() => handleDelete(car.id)}>
-                        <FaTrashAlt className="text-2xl text-red-600 cursor-pointer"></FaTrashAlt>
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+        <div className="pt-14 px-10 w-[100vw] md:w-full">
+          <MaterialReactTable
+            columns={columns}
+            data={brands ?? []}
+            state={{ isLoading }}
+            muiTableContainerProps={{ sx: { maxHeight: '60vh' } }}
+            initialState={{
+              density: 'compact',
+              columnVisibility: { id: false },
+            }}
+            renderTopToolbarCustomActions={() => {
+              return (
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <button className="bg-orange-500 hover:bg-orange-400 py-2 px-2 text-white font-medium rounded-md shadow-sm">
+                    Add Brand +
+                  </button>
+                </div>
+              );
+            }}
+          />
         </div>
 
         {selectedBrand && (
           <div className="fixed inset-0 flex items-center justify-center">
-            <div className="modal-overlay fixed inset-0 bg-gray-500 opacity-50"></div>
-            <div className="modal lg:ml-[17%] w-[80%]  lg:w-[40%] z-10 bg-white p-6 rounded-lg shadow-lg relative">
-              <button
-                onClick={handleModalClose}
-                className="absolute top-0 right-0 p-2 hover:text-gray-700"
-              >
-                <FaRegWindowClose className="text-xl" />
-              </button>
-              <form onSubmit={handleSubmit} className="flex flex-col">
-                <h2 className="text-2xl text-center font-bold mb-4">
-                  Edit Brand
-                </h2>
-                <div className="mb-4">
-                  <label
-                    className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
-                    htmlFor="name"
-                  >
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    value={editedName}
-                    onChange={(e) => setEditedName(e.target.value)}
-                    className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label
-                    className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
-                    htmlFor="photo"
-                  >
-                    Photo
-                  </label>
-                  <input
-                    type="file"
-                    id="photo"
-                    onChange={(e) => setPhoto(e.target.files[0])}
-                    className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                    placeholder="Choose a picture"
-                    required
-                  />
-                </div>
-
+            <Dialog
+              open={open}
+              onClose={handleModalClose}
+              fullWidth
+              maxWidth={'sm'}
+            >
+              <div className="modal  z-10 bg-white p-6 rounded-lg shadow-lg relative">
                 <button
-                  className="bg-orange-500 text-white self-center p-2 px-4 mt-10 py-2 w-20 rounded"
-                  type="submit"
+                  onClick={handleModalClose}
+                  className="absolute top-0 right-0 p-2 hover:text-gray-700"
                 >
-                  Edit
+                  <FaRegWindowClose className="text-xl" />
                 </button>
-              </form>
-            </div>
+                <form onSubmit={handleSubmit} className="flex flex-col">
+                  <h2 className="text-2xl text-center font-bold mb-4">
+                    Edit Brand
+                  </h2>
+                  <div className="mb-4">
+                    <label
+                      className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
+                      htmlFor="name"
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      value={editedName}
+                      onChange={(e) => setEditedName(e.target.value)}
+                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label
+                      className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
+                      htmlFor="photo"
+                    >
+                      Photo
+                    </label>
+                    <input
+                      type="file"
+                      id="photo"
+                      onChange={(e) => setPhoto(e.target.files[0])}
+                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      placeholder="Choose a picture"
+                      required
+                    />
+                  </div>
+
+                  <button
+                    className="bg-orange-500 text-white self-center p-2 px-4 mt-10 py-2 w-20 rounded"
+                    type="submit"
+                  >
+                    Edit
+                  </button>
+                </form>
+              </div>
+            </Dialog>
           </div>
         )}
       </div>

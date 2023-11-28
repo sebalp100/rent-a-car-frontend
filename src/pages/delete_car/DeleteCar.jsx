@@ -3,10 +3,7 @@ import SideNav from '../dashboard/SideNav';
 import TopBar from '../../components/TopBar';
 import { useDeleteCarMutation, useGetCarsQuery } from '../../api/authApi';
 import { FaTrashAlt } from 'react-icons/fa';
-import {
-  MaterialReactTable,
-  useMaterialReactTable,
-} from 'material-react-table';
+import { MaterialReactTable } from 'material-react-table';
 
 const DeleteCar = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
@@ -69,12 +66,15 @@ const DeleteCar = ({ user }) => {
       {
         accessorKey: 'action',
         header: 'Action',
+        muiTableHeadCellProps: {
+          align: 'center',
+        },
         minSize: 150,
         Cell: ({ row }) => {
           const carID = row.getValue('id');
 
           return (
-            <div className="flex gap-1">
+            <div className="flex justify-center">
               <button
                 onClick={() => {
                   handleDelete(carID);
