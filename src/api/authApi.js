@@ -26,6 +26,27 @@ export const authLog = createApi({
         }),
       providesTags: ['Cars'],
     }),
+    getAvailableCars: builder.query({
+      query: (authToken) => (
+        {
+          url: '/cars?reserved=false',
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${authToken}`,
+          },
+        }),
+    }),
+    getReservations: builder.query({
+      query: (authToken) => (
+        {
+          url: '/rentals',
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${authToken}`,
+          },
+        }),
+      providesTags: ['Reservations'],
+    }),
     getCarsByBrand: builder.query({
       query: (brand) => (
         {
@@ -75,6 +96,18 @@ export const authLog = createApi({
           },
         }),
     }),
+    addReservation: builder.mutation({
+      query: (reservation) => (
+        {
+          url: `/rentals`,
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${reservation.token}`,
+          },
+          body: reservation.rental,
+        }),
+      invalidatesTags: ['Reservations'],
+    }),
     deleteCar: builder.mutation({
       query: (user) => (
         {
@@ -100,4 +133,4 @@ export const authLog = createApi({
   }),
 });
 
-export const { useGetBrandsQuery, useGetCarsQuery, useGetFeaturedQuery, useGetCarsByBrandQuery, useGetCarsDetailsQuery, useLoginMutation, useLogoutMutation, useDeleteCarMutation, useDeleteBrandMutation } = authLog;
+export const { useGetBrandsQuery, useGetCarsQuery, useGetReservationsQuery, useGetFeaturedQuery, useGetCarsByBrandQuery, useGetCarsDetailsQuery, useGetAvailableCarsQuery, useLoginMutation, useLogoutMutation, useAddReservationMutation, useDeleteCarMutation, useDeleteBrandMutation } = authLog;

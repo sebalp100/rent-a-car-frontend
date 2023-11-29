@@ -1,19 +1,20 @@
 import { useMemo, useState } from 'react';
 import SideNav from '../dashboard/SideNav';
 import TopBar from '../../components/TopBar';
-import { useDeleteBrandMutation, useGetBrandsQuery } from '../../api/authApi';
+import { useGetReservationsQuery } from '../../api/authApi';
 import { FaTrashAlt, FaEdit, FaRegWindowClose } from 'react-icons/fa';
 import { MaterialReactTable } from 'material-react-table';
 import axios from 'axios';
 import { Dialog } from '@mui/material';
 import NewReservationModal from './NewBrandModal';
 
-const Brands = ({ user }) => {
+const Reservations = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [photo, setPhoto] = useState(null);
   const token = user?.token;
   const email = user?.email;
+  const userId = user?.id;
 
   const [editedName, setEditedName] = useState('');
   const [open, setOpen] = useState(false);
@@ -21,28 +22,14 @@ const Brands = ({ user }) => {
 
   const showMenu = () => setSidebar(true);
   const closeMenu = () => setSidebar(false);
-
-  const [deleteBrand] = useDeleteBrandMutation();
-  const { data: brands, isLoading, refetch } = useGetBrandsQuery(token);
-
-  const handleEdit = (brand) => {
-    setOpen(true);
-    setSelectedBrand(brand.id);
-    setEditedName(brand.name);
-  };
+  const {
+    data: reservations,
+    isLoading,
+    refetch,
+  } = useGetReservationsQuery(token);
 
   const handleAddModal = () => {
     setOpen2(true);
-  };
-
-  const handleDelete = (id) => {
-    const shouldDelete = window.confirm(
-      'Are you sure you want to delete this brand?'
-    );
-
-    if (shouldDelete) {
-      deleteBrand({ id, token });
-    }
   };
 
   const handleModalClose = () => {
@@ -57,10 +44,6 @@ const Brands = ({ user }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('brand[name]', editedName);
-    formData.append('brand[photo]', photo);
 
     axios
       .put(`http://localhost:3001/brands/${selectedBrand}`, formData, {
@@ -89,28 +72,43 @@ const Brands = ({ user }) => {
         minSize: 100,
       },
       {
-        accessorKey: 'name',
-        header: 'Name',
+        accessorKey: 'car.model',
+        header: 'Model',
+        size: 200,
+      },
+      {
+        accessorKey: 'car.year',
+        header: 'Year',
         minSize: 150,
       },
       {
-        accessorKey: 'photo_url',
-        header: 'Picture',
-        minSize: 200,
+        accessorKey: 'car.price',
+        header: 'Total Price',
+        minSize: 150,
         Cell: ({ cell, row }) => {
-          const carPic = cell.getValue();
-          const carName = row.getValue('name');
+          const price = cell.getValue();
+          const initial = new Date(row.getValue('rental_date'));
+          const returning = new Date(row.getValue('return_date'));
 
-          return (
-            <div className="flex gap-1">
-              <img
-                src={`http://localhost:3001/${carPic}`}
-                alt={`${carName} Logo`}
-                className="w-16 h-16 object-contain"
-              />
-            </div>
+          const differenceInMilliseconds = returning - initial;
+          const differenceInDays = Math.abs(
+            Math.floor(differenceInMilliseconds / (24 * 60 * 60 * 1000))
           );
+
+          const total = price * differenceInDays;
+
+          return <div className="flex justify-center">${total}</div>;
         },
+      },
+      {
+        accessorKey: 'rental_date',
+        header: 'Rental date',
+        minSize: 150,
+      },
+      {
+        accessorKey: 'return_date',
+        header: 'Return Date',
+        minSize: 150,
       },
       {
         accessorKey: 'action',
@@ -124,10 +122,10 @@ const Brands = ({ user }) => {
 
           return (
             <div className="flex justify-center">
-              <button onClick={() => handleEdit(row.original)}>
+              <button onClick={() => console.log(row.original)}>
                 <FaEdit className="text-2xl  mr-4 cursor-pointer"></FaEdit>
               </button>
-              <button onClick={() => handleDelete(carID)}>
+              <button onClick={() => console.log(carID)}>
                 <FaTrashAlt className="text-2xl text-red-600 cursor-pointer"></FaTrashAlt>
               </button>
             </div>
@@ -146,7 +144,7 @@ const Brands = ({ user }) => {
         <div className="pt-14 px-10 w-[100vw] md:w-full">
           <MaterialReactTable
             columns={columns}
-            data={brands ?? []}
+            data={reservations ?? []}
             state={{ isLoading }}
             muiTableContainerProps={{ sx: { maxHeight: '70vh' } }}
             initialState={{
@@ -160,7 +158,7 @@ const Brands = ({ user }) => {
                     onClick={() => handleAddModal()}
                     className="bg-orange-500 hover:bg-orange-400 py-2 px-2 text-white font-medium rounded-md shadow-sm"
                   >
-                    Add Brand +
+                    Add Reservation +
                   </button>
                 </div>
               );
@@ -236,11 +234,11 @@ const Brands = ({ user }) => {
           token={token}
           open2={open2}
           onClose={handleCloseModal}
-          refetch={refetch}
+          userId={userId}
         ></NewReservationModal>
       )}
     </div>
   );
 };
 
-export default Brands;
+export default Reservations;

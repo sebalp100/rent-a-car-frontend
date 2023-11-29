@@ -1,36 +1,40 @@
 import { Dialog } from '@mui/material';
-import axios from 'axios';
 import { useState } from 'react';
 import { FaRegWindowClose } from 'react-icons/fa';
+import {
+  useAddReservationMutation,
+  useGetAvailableCarsQuery,
+} from '../../api/authApi';
 
-const NewReservationModal = ({ token, open2, onClose, refetch }) => {
-  const [photo2, setPhoto2] = useState(null);
-  const [editedName2, setEditedName2] = useState('');
+const NewReservationModal = ({ token, open2, onClose, userId }) => {
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [carId, setCarId] = useState('');
+
+  const { data: available } = useGetAvailableCarsQuery(token);
+
+  const [addReservation] = useAddReservationMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('brand[name]', editedName2);
-    formData.append('brand[photo]', photo2);
+    const rental = {
+      car_id: carId,
+      user_id: userId,
+      rental_date: startDate,
+      return_date: endDate,
+    };
 
-    axios
-      .post(`http://localhost:3001/brands`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-        mode: 'cors',
-      })
-      .then(() => {
-        console.log('Brand added succesfully');
-        setPhoto2(null);
-        onClose();
-        refetch();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const obj = { rental, token };
+
+    try {
+      addReservation(obj);
+      console.log('Reservation added successfully');
+
+      onClose();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -48,34 +52,58 @@ const NewReservationModal = ({ token, open2, onClose, refetch }) => {
             <div className="mb-4">
               <label
                 className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
-                htmlFor="name"
+                htmlFor="model"
               >
-                Name
+                Model
               </label>
-              <input
-                type="text"
-                id="name"
-                value={editedName2}
-                onChange={(e) => setEditedName2(e.target.value)}
-                className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-              />
+              <select
+                id="model"
+                value={carId}
+                onChange={(e) => setCarId(e.target.value)}
+                className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none "
+              >
+                <option value="">Select a model</option>
+                {available?.map((car) => (
+                  <option key={car.id} value={car.id}>
+                    {car.model} {car.year}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            <div className="mb-4">
-              <label
-                className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
-                htmlFor="photo"
-              >
-                Photo
-              </label>
-              <input
-                type="file"
-                id="photo"
-                onChange={(e) => setPhoto2(e.target.files[0])}
-                className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                placeholder="Choose a picture"
-                required
-              />
+            <div className="mb-4 flex justify-between">
+              <div className="w-[40%]">
+                <label
+                  className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
+                  htmlFor="rental_date"
+                >
+                  Start Date
+                </label>
+                <input
+                  type="date"
+                  id="rental_date"
+                  onChange={(e) => setStartDate(e.target.value)}
+                  placeholder="Choose a date"
+                  className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none"
+                  required
+                />
+              </div>
+              <div className="w-[40%]">
+                <label
+                  className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
+                  htmlFor="rental_date"
+                >
+                  Return Date
+                </label>
+                <input
+                  type="date"
+                  id="rental_date"
+                  onChange={(e) => setEndDate(e.target.value)}
+                  placeholder="Choose a date"
+                  className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none"
+                  required
+                />
+              </div>
             </div>
 
             <button

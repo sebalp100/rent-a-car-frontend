@@ -92,7 +92,7 @@ const SideNav = (props) => {
         </ul>
       </div>
       <div className="flex flex-col logout-sidebar w-10/12 mb-[5vh]">
-        <div className="flex pl-2 cursor-pointer mt-[38vh] py-[0.4rem] gap-2 text-red-500 font-medium hover:bg-red-700 menu-item-name hover:text-white rounded-sm">
+        <div className="flex pl-2 cursor-pointer mt-[30vh] py-[0.4rem] gap-2 text-red-500 font-medium hover:bg-red-700 menu-item-name hover:text-white rounded-sm">
           <CiLogout className="text-2xl menu-links-text"></CiLogout>
           <button onClick={handleClick}>Logout</button>
         </div>

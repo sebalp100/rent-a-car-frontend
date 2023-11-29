@@ -14,6 +14,7 @@ import DeleteCar from './pages/delete_car/DeleteCar';
 import Brands from './pages/brands/Brands';
 import CarListByBrand from './pages/list/ListByBrand';
 import CarDetails from './pages/details/CarDetails';
+import Reservations from './pages/reservations/Reservations';
 
 function App() {
   const decryptData = (encryptedData, key) => {
@@ -43,6 +44,10 @@ function App() {
             element={<Dashboard user={decryptedUserData} />}
           />
           <Route path="/list" element={<CarList user={decryptedUserData} />} />
+          <Route
+            path="/reservations"
+            element={<Reservations user={decryptedUserData} />}
+          />
           <Route
             path="/list/:brandId"
             element={<CarListByBrand user={decryptedUserData} />}
