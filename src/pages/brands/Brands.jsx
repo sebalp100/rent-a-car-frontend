@@ -148,7 +148,7 @@ const Brands = ({ user }) => {
             columns={columns}
             data={brands ?? []}
             state={{ isLoading }}
-            muiTableContainerProps={{ sx: { maxHeight: '70vh' } }}
+            muiTableContainerProps={{ sx: { maxHeight: '65vh' } }}
             initialState={{
               density: 'compact',
               columnVisibility: { id: false },

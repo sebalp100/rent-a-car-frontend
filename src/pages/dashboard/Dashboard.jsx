@@ -52,7 +52,7 @@ const Dashboard = ({ user }) => {
                         <h3 className="text-orange-500 font-medium text-lg">
                           ${car.price}
                         </h3>{' '}
-                        <p className="text-sm pb-4">{car.description}</p>{' '}
+                        <p className="text-sm h-20 pb-4">{car.description}</p>{' '}
                         <div className="grid grid-cols-2">
                           <div className="flex gap-2 items-center">
                             <BsSpeedometer2 className="text-lg" />

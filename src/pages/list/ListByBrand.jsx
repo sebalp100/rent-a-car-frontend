@@ -32,7 +32,7 @@ const CarListByBrand = ({ user }) => {
             {isLoading ? (
               <p>Loading data...</p>
             ) : (
-              brandsById.map((car) => (
+              brandsById?.map((car) => (
                 <Link key={car.id} to={`/list/car/${car.id}`}>
                   <div key={car.id} className="card shadow-md">
                     <div className="image-container">
