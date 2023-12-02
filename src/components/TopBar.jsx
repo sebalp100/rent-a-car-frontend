@@ -25,14 +25,6 @@ const TopBar = ({ email }) => {
   return (
     <div className="flex justify-end items-center h-14 w-full shadow">
       <div className="flex gap-3 mr-5 items-center">
-        <div className="flex ml-4 gap-2 items-center">
-          <FaMagnifyingGlass></FaMagnifyingGlass>
-          <input
-            type="text"
-            placeholder="Search..."
-            className="pl-2 border-2 border-slate-800"
-          />
-        </div>
         {email2 ? (
           <p className="text-sm">{email2}</p>
         ) : (

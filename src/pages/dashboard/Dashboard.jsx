@@ -18,7 +18,7 @@ const Dashboard = ({ user }) => {
   const showMenu = () => setSidebar(true);
   const closeMenu = () => setSidebar(false);
   return (
-    <div className="flex">
+    <div className="flex bg-[#fffefc] h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>

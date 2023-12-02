@@ -2,11 +2,13 @@ import { useMemo, useState } from 'react';
 import SideNav from '../dashboard/SideNav';
 import TopBar from '../../components/TopBar';
 import { useGetReservationsQuery } from '../../api/authApi';
-import { FaTrashAlt, FaEdit, FaRegWindowClose } from 'react-icons/fa';
+import { FaRegWindowClose } from 'react-icons/fa';
 import { MaterialReactTable } from 'material-react-table';
 import axios from 'axios';
 import { Dialog } from '@mui/material';
 import NewReservationModal from './NewBrandModal';
+import { IoCloseCircleOutline } from 'react-icons/io5';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Reservations = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
@@ -42,26 +44,56 @@ const Reservations = ({ user }) => {
     setOpen2(false);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (id) => {
+    const payload = {
+      status: 'canceled',
+    };
 
-    axios
-      .put(`http://localhost:3001/brands/${selectedBrand}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-        mode: 'cors',
-      })
-      .then(() => {
-        console.log('Edited succesfully');
-        refetch();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const handleCancel = () => {
+      axios
+        .put(`http://localhost:3001/rentals/${id}`, payload, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          mode: 'cors',
+        })
+        .then(() => {
+          toast.success('Reservation canceled succesfully');
+          refetch();
+        })
+        .catch((error) => {
+          toast.error(error.data.message);
+        });
+    };
 
-    setOpen(false);
+    toast(
+      (t) => (
+        <div className="flex flex-col items-center px-1 py-1 gap-4">
+          <p>Are you sure you want to cancel?</p>
+          <div className="flex gap-10">
+            <button
+              className="bg-green-500 shadow-[0_4px_9px_-4px_#14a44d] hover:bg-green-600 rounded text-white py-2 px-4"
+              onClick={() => {
+                handleCancel();
+                toast.dismiss(t.id);
+              }}
+            >
+              Confirm
+            </button>
+            <button
+              className="bg-red-600 shadow-[0_4px_9px_-4px_#dc4c64] hover:bg-red-700 rounded text-white py-2 px-4"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        duration: 6000,
+      }
+    );
   };
 
   const columns = useMemo(
@@ -79,12 +111,12 @@ const Reservations = ({ user }) => {
       {
         accessorKey: 'car.year',
         header: 'Year',
-        minSize: 150,
+        size: 70,
       },
       {
         accessorKey: 'car.price',
         header: 'Total Price',
-        minSize: 150,
+        size: 80,
         Cell: ({ cell, row }) => {
           const price = cell.getValue();
           const initial = new Date(row.getValue('rental_date'));
@@ -108,7 +140,40 @@ const Reservations = ({ user }) => {
       {
         accessorKey: 'return_date',
         header: 'Return Date',
-        minSize: 150,
+        size: 80,
+      },
+      {
+        accessorKey: 'status',
+        header: 'Status',
+        size: 100,
+        Cell: ({ cell }) => {
+          const statusRow = cell.getValue();
+
+          return (
+            <div className="flex items-center justify-center">
+              {statusRow == 'completed' && (
+                <div className="bg-green-400 shadow border-green-500 border text-white  py-[0.12rem] px-2 ">
+                  Completed
+                </div>
+              )}
+              {statusRow == 'pending' && (
+                <div className="bg-slate-200 border-slate-300 border shadow py-[0.12rem] px-2 ">
+                  Pending
+                </div>
+              )}
+              {statusRow == 'in_progress' && (
+                <div className="bg-yellow-200 border-yellow-300 border shadow py-[0.12rem] px-2 ">
+                  In progress
+                </div>
+              )}
+              {statusRow == 'canceled' && (
+                <div className="bg-red-500 shadow border-red-600 border text-white py-[0.12rem] px-2 ">
+                  Canceled
+                </div>
+              )}
+            </div>
+          );
+        },
       },
       {
         accessorKey: 'action',
@@ -116,18 +181,20 @@ const Reservations = ({ user }) => {
         muiTableHeadCellProps: {
           align: 'center',
         },
-        minSize: 150,
+        size: 60,
         Cell: ({ row }) => {
           const carID = row.getValue('id');
+          const statusRow = row.getValue('status');
 
           return (
-            <div className="flex justify-center">
-              <button onClick={() => console.log(row.original)}>
-                <FaEdit className="text-2xl  mr-4 cursor-pointer"></FaEdit>
-              </button>
-              <button onClick={() => console.log(carID)}>
-                <FaTrashAlt className="text-2xl text-red-600 cursor-pointer"></FaTrashAlt>
-              </button>
+            <div className="flex justify-center h-7">
+              {statusRow != 'completed' && statusRow != 'canceled' && (
+                <div title="Cancel">
+                  <button onClick={() => handleSubmit(carID)}>
+                    <IoCloseCircleOutline className="text-3xl  text-red-600 cursor-pointer"></IoCloseCircleOutline>
+                  </button>
+                </div>
+              )}
             </div>
           );
         },
@@ -142,6 +209,7 @@ const Reservations = ({ user }) => {
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
         <div className="pt-14 px-10 w-[100vw] md:w-full">
+          <Toaster />
           <MaterialReactTable
             columns={columns}
             data={reservations ?? []}
@@ -150,6 +218,12 @@ const Reservations = ({ user }) => {
             initialState={{
               density: 'compact',
               columnVisibility: { id: false },
+              sorting: [
+                {
+                  id: 'id',
+                  asc: true,
+                },
+              ],
             }}
             renderTopToolbarCustomActions={() => {
               return (

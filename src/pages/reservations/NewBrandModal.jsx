@@ -5,6 +5,7 @@ import {
   useAddReservationMutation,
   useGetAvailableCarsQuery,
 } from '../../api/authApi';
+import toast from 'react-hot-toast';
 
 const NewReservationModal = ({ token, open2, onClose, userId }) => {
   const [startDate, setStartDate] = useState(null);
@@ -13,7 +14,7 @@ const NewReservationModal = ({ token, open2, onClose, userId }) => {
 
   const { data: available } = useGetAvailableCarsQuery(token);
 
-  const [addReservation] = useAddReservationMutation();
+  const [addReservation, { isError }] = useAddReservationMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,12 +29,16 @@ const NewReservationModal = ({ token, open2, onClose, userId }) => {
     const obj = { rental, token };
 
     try {
-      addReservation(obj);
-      console.log('Reservation added successfully');
+      await addReservation(obj).unwrap();
 
+      toast.success('Reservation added successfully');
       onClose();
     } catch (error) {
-      console.error(error);
+      const errorMessagesArray = error.data.message.split(', ');
+
+      errorMessagesArray?.forEach((errorMessage) => {
+        toast.error(errorMessage);
+      });
     }
   };
 

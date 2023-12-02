@@ -23,7 +23,7 @@ const CarList = ({ user }) => {
             {isLoading ? (
               <p>Loading data...</p>
             ) : (
-              brands.map((brand) => (
+              brands?.map((brand) => (
                 <Link key={brand.id} to={`/list/${brand.id}`}>
                   <div
                     className="flex flex-col justify-center h-80 relative polaroid items-center w-[20rem]"
