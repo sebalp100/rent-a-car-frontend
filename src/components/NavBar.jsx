@@ -2,26 +2,26 @@ import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   return (
-    <nav className="flex bg-gray-800 font-medium justify-between px-[6%] py-[2.9vh] text-white">
-      <div className="w-60">
-        <img src="images/rentacaricon.png" alt="car icon" />
+    <nav className="flex bg-[#1e1e1e] font-medium justify-between px-[6%] py-[2.9vh] text-white">
+      <div className="h-7 flex items-center">
+        <img src="images/Logorentwhite.png" className=" h-14" alt="car icon" />
       </div>
       <div>
-        <ul className="flex gap-6">
-          <Link to="/" className="hover:text-orange-500">
+        <ul className="flex gap-6 text-sm sm:text-base">
+          <Link to="/" className="hover:text-[#d60000]">
             Home
           </Link>
-          <Link to="/about" className="hover:text-orange-500">
+          <Link to="/about" className="hover:text-[#d60000]">
             About
           </Link>
-          <Link to="/contact" className="hover:text-orange-500">
+          <Link to="/contact" className="hover:text-[#d60000]">
             Contact
           </Link>
-          <Link to="/dashboard" className="hover:text-orange-500">
+          <Link to="/dashboard" className="hover:text-[#d60000]">
             Dashboard
           </Link>
           <Link to="/login">
-            <button className="bg-orange-400 hover:bg-orange-300 rounded px-6 py-1 text-white font-medium">
+            <button className="bg-[#d60000] hover:bg-red-700 rounded px-6 py-1 text-white font-medium">
               Login
             </button>
           </Link>

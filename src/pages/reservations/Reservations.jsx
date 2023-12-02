@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Dialog } from '@mui/material';
 import NewReservationModal from './NewBrandModal';
 import { IoCloseCircleOutline } from 'react-icons/io5';
+import { createTheme, ThemeProvider, useTheme } from '@mui/material';
 import toast, { Toaster } from 'react-hot-toast';
 
 const Reservations = ({ user }) => {
@@ -150,24 +151,24 @@ const Reservations = ({ user }) => {
           const statusRow = cell.getValue();
 
           return (
-            <div className="flex items-center justify-center">
+            <div className="flex items-center text-black justify-center">
               {statusRow == 'completed' && (
-                <div className="bg-green-400 shadow border-green-500 border text-white  py-[0.12rem] px-2 ">
+                <div className="bg-green-400 shadow  font-semibold rounded-sm py-[0.12rem] px-2 ">
                   Completed
                 </div>
               )}
               {statusRow == 'pending' && (
-                <div className="bg-slate-200 border-slate-300 border shadow py-[0.12rem] px-2 ">
+                <div className="bg-slate-200  font-semibold  shadow rounded-sm py-[0.12rem] px-2 ">
                   Pending
                 </div>
               )}
               {statusRow == 'in_progress' && (
-                <div className="bg-yellow-200 border-yellow-300 border shadow py-[0.12rem] px-2 ">
+                <div className="bg-yellow-200 font-semibold  shadow rounded-sm py-[0.12rem] px-2 ">
                   In progress
                 </div>
               )}
               {statusRow == 'canceled' && (
-                <div className="bg-red-500 shadow border-red-600 border text-white py-[0.12rem] px-2 ">
+                <div className="bg-red-500 shadow  font-semibold  rounded-sm py-[0.12rem] px-2 ">
                   Canceled
                 </div>
               )}
@@ -203,41 +204,65 @@ const Reservations = ({ user }) => {
     []
   );
 
+  const globalTheme = useTheme();
+
+  const tableTheme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: 'dark', //let's use the same dark/light mode as the global theme
+          primary: globalTheme.palette.secondary, //swap in the secondary color as the primary for the table
+          info: {
+            main: 'rgb(255,122,0)', //add in a custom color for the toolbar alert background stuff
+          },
+        },
+      }),
+    [globalTheme]
+  );
+
   return (
-    <div className="flex">
+    <div className="flex bg-[#1e1e1e] h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
         <div className="pt-14 px-10 w-[100vw] md:w-full">
           <Toaster />
-          <MaterialReactTable
-            columns={columns}
-            data={reservations ?? []}
-            state={{ isLoading }}
-            muiTableContainerProps={{ sx: { maxHeight: '70vh' } }}
-            initialState={{
-              density: 'compact',
-              columnVisibility: { id: false },
-              sorting: [
-                {
-                  id: 'id',
-                  asc: true,
-                },
-              ],
-            }}
-            renderTopToolbarCustomActions={() => {
-              return (
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <button
-                    onClick={() => handleAddModal()}
-                    className="bg-orange-500 hover:bg-orange-400 py-2 px-2 text-white font-medium rounded-md shadow-sm"
-                  >
-                    Add Reservation +
-                  </button>
-                </div>
-              );
-            }}
-          />
+          <ThemeProvider theme={tableTheme}>
+            <MaterialReactTable
+              columns={columns}
+              data={reservations ?? []}
+              state={{ isLoading }}
+              muiTableContainerProps={{ sx: { maxHeight: '70vh' } }}
+              muiTableHeadCellProps={{
+                //no useTheme hook needed, just use the `sx` prop with the theme callback
+                sx: (theme) => ({
+                  color: theme.palette.secondary,
+                }),
+              }}
+              initialState={{
+                density: 'compact',
+                columnVisibility: { id: false },
+                sorting: [
+                  {
+                    id: 'id',
+                    asc: true,
+                  },
+                ],
+              }}
+              renderTopToolbarCustomActions={() => {
+                return (
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <button
+                      onClick={() => handleAddModal()}
+                      className="bg-orange-500 hover:bg-orange-400 py-2 px-2 text-white font-medium rounded-md shadow-sm"
+                    >
+                      Add Reservation +
+                    </button>
+                  </div>
+                );
+              }}
+            />
+          </ThemeProvider>
         </div>
         {selectedBrand && (
           <div className="fixed inset-0 flex items-center justify-center">

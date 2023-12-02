@@ -23,7 +23,7 @@ const CarListByBrand = ({ user }) => {
   const closeMenu = () => setSidebar(false);
 
   return (
-    <div className="flex">
+    <div className="flex bg-[#1e1e1e] text-white h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
@@ -34,7 +34,7 @@ const CarListByBrand = ({ user }) => {
             ) : (
               brandsById?.map((car) => (
                 <Link key={car.id} to={`/list/car/${car.id}`}>
-                  <div key={car.id} className="card shadow-md">
+                  <div key={car.id} className="card bg-[#3e3e42] shadow-md">
                     <div className="image-container">
                       {car.photo_url ? (
                         <img

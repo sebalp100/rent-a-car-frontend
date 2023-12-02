@@ -21,14 +21,14 @@ const SideNav = (props) => {
 
   return (
     <div
-      className={`h-screen w-[16.9%] flex flex-col border-r-2 border-slate-100 bg-white justify-start fixed items-center sidebar-dashboard ${
+      className={`h-screen w-[16.9%] bg-[#3e3e42] text-white flex flex-col border-r-2 border-slate-600  justify-start fixed items-center sidebar-dashboard ${
         props.sidebar ? 'show' : ''
       }`}
     >
       <Link to="/">
         <img
           className="pb-4 pt-[3.8vh] w-[13vw] mb-10"
-          src="images/logo2.png"
+          src="images/rentacaricon.png"
           alt="Logo"
         />
       </Link>

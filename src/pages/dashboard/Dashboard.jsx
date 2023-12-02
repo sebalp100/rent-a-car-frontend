@@ -18,12 +18,12 @@ const Dashboard = ({ user }) => {
   const showMenu = () => setSidebar(true);
   const closeMenu = () => setSidebar(false);
   return (
-    <div className="flex bg-[#fffefc] h-[100vh]">
+    <div className="flex bg-[#1e1e1e] h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
         <div className="flex h-[80vh] justify-between pt-10 flex-col items-center">
-          <h1 className="pb-7 text-3xl font-medium">
+          <h1 className="pb-7 text-3xl text-white font-medium">
             FEATURED <span className="text-orange-500">CARS</span>
           </h1>
           <div>
@@ -33,7 +33,10 @@ const Dashboard = ({ user }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {featuredCars.map((car) => (
                   <Link key={car.id} to={`/list/car/${car.id}`}>
-                    <div key={car.id} className="card shadow-md">
+                    <div
+                      key={car.id}
+                      className="card text-white bg-[#3e3e42] shadow-md"
+                    >
                       <div className="image-container">
                         {car.photo_url ? (
                           <img

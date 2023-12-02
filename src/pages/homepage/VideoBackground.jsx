@@ -24,7 +24,7 @@ const VideoBackground = () => {
       </video>
       <div className="text-overlay">
         <h1 className="text-6xl font-bold text-white leading-normal pb-10">
-          RENT THE <span className="text-orange-500">CAR</span> OF YOUR DREAMS
+          RENT THE <span className="text-[#d60000]">CAR</span> OF YOUR DREAMS
           TODAY
         </h1>
       </div>
