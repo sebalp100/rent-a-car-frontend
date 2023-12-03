@@ -151,24 +151,24 @@ const Reservations = ({ user }) => {
           const statusRow = cell.getValue();
 
           return (
-            <div className="flex items-center text-black justify-center">
+            <div className="flex items-center justify-center text-white">
               {statusRow == 'completed' && (
-                <div className="bg-green-400 shadow  font-semibold rounded-sm py-[0.12rem] px-2 ">
+                <div className="bg-green-400 shadow  font-medium rounded-sm py-[0.12rem] px-2 ">
                   Completed
                 </div>
               )}
               {statusRow == 'pending' && (
-                <div className="bg-slate-200  font-semibold  shadow rounded-sm py-[0.12rem] px-2 ">
+                <div className="bg-slate-200  font-medium  text-black shadow rounded-sm py-[0.12rem] px-2 ">
                   Pending
                 </div>
               )}
               {statusRow == 'in_progress' && (
-                <div className="bg-yellow-200 font-semibold  shadow rounded-sm py-[0.12rem] px-2 ">
+                <div className="bg-yellow-200 font-medium text-black  shadow rounded-sm py-[0.12rem] px-2 ">
                   In progress
                 </div>
               )}
               {statusRow == 'canceled' && (
-                <div className="bg-red-500 shadow  font-semibold  rounded-sm py-[0.12rem] px-2 ">
+                <div className="bg-red-500 shadow  font-medium  rounded-sm py-[0.12rem] px-2 ">
                   Canceled
                 </div>
               )}
@@ -210,7 +210,7 @@ const Reservations = ({ user }) => {
     () =>
       createTheme({
         palette: {
-          mode: 'dark', //let's use the same dark/light mode as the global theme
+          mode: 'light', //let's use the same dark/light mode as the global theme
           primary: globalTheme.palette.secondary, //swap in the secondary color as the primary for the table
           info: {
             main: 'rgb(255,122,0)', //add in a custom color for the toolbar alert background stuff
@@ -221,7 +221,7 @@ const Reservations = ({ user }) => {
   );
 
   return (
-    <div className="flex bg-[#1e1e1e] h-[100vh]">
+    <div className="flex bg-[#fdf9f9] min-h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
@@ -254,7 +254,7 @@ const Reservations = ({ user }) => {
                   <div style={{ display: 'flex', gap: '0.5rem' }}>
                     <button
                       onClick={() => handleAddModal()}
-                      className="bg-orange-500 hover:bg-orange-400 py-2 px-2 text-white font-medium rounded-md shadow-sm"
+                      className="bg-[#d60000] hover:bg-red-700 py-2 px-2 text-white font-medium rounded-md shadow-sm"
                     >
                       Add Reservation +
                     </button>

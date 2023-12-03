@@ -23,7 +23,7 @@ const CarListByBrand = ({ user }) => {
   const closeMenu = () => setSidebar(false);
 
   return (
-    <div className="flex bg-[#1e1e1e] text-white h-[100vh]">
+    <div className="flex bg-[#fdf9f9] min-h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
@@ -34,7 +34,7 @@ const CarListByBrand = ({ user }) => {
             ) : (
               brandsById?.map((car) => (
                 <Link key={car.id} to={`/list/car/${car.id}`}>
-                  <div key={car.id} className="card bg-[#3e3e42] shadow-md">
+                  <div key={car.id} className="card bg-white shadow-md">
                     <div className="image-container">
                       {car.photo_url ? (
                         <img
@@ -50,10 +50,12 @@ const CarListByBrand = ({ user }) => {
                     </div>
                     <div className="card-content">
                       <h3>{car.name}</h3>{' '}
-                      <h3 className="text-orange-500 font-medium text-lg">
+                      <h3 className="text-[#d60000] font-medium text-lg">
                         ${car.price}
                       </h3>{' '}
-                      <p className="text-sm pb-4">{car.description}</p>{' '}
+                      <p className="text-sm mb-5 line-clamp-3">
+                        {car.description}
+                      </p>{' '}
                       <div className="grid grid-cols-2">
                         <div className="flex gap-2 items-center">
                           <BsSpeedometer2 className="text-lg" />
@@ -88,7 +90,7 @@ const CarListByBrand = ({ user }) => {
         {!isLoading && (
           <Link
             to="/list"
-            className="bg-orange-500 text-white font-medium px-2 py-2 w-20 mb-10 mt-4 self-center text-center rounded"
+            className="bg-[#d60000] hover:bg-red-700 text-white font-medium px-2 py-2 w-20 mb-10 mt-4 self-center text-center rounded"
           >
             Back
           </Link>

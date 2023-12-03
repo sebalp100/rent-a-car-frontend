@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SideNav from './SideNav';
 import TopBar from '../../components/TopBar';
 import { BsSpeedometer2 } from 'react-icons/bs';
@@ -7,36 +7,60 @@ import { IoMdSettings } from 'react-icons/io';
 import { FaCubes } from 'react-icons/fa';
 import { useGetFeaturedQuery } from '../../api/authApi';
 import { Link } from 'react-router-dom';
+import Carousel from 'nuka-carousel';
 
 const Dashboard = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
+  const [slidesToShow, setSlidesToShow] = useState(3);
   const token = user?.token;
   const email = user?.email;
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setSlidesToShow(3);
+      } else if (window.innerWidth >= 768) {
+        setSlidesToShow(2);
+      } else {
+        setSlidesToShow(1);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const settings = {
+    slidesToShow,
+    autoplay: true,
+    wrapAround: true,
+    autoplayInterval: 5000,
+  };
 
   const { data: featuredCars, isLoading } = useGetFeaturedQuery(token);
 
   const showMenu = () => setSidebar(true);
   const closeMenu = () => setSidebar(false);
   return (
-    <div className="flex bg-[#1e1e1e] h-[100vh]">
+    <div className="bg-[#fdf9f9] min-h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
-      <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
+      <div className="md:ml-[16.68vw]  md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
-        <div className="flex h-[80vh] justify-between pt-10 flex-col items-center">
-          <h1 className="pb-7 text-3xl text-white font-medium">
-            FEATURED <span className="text-orange-500">CARS</span>
+        <div className="ml-[8vw]">
+          <h1 className="ml-[-8vw] pb-10 text-3xl pt-10 text-center  font-medium">
+            FEATURED <span className="text-[#d60000]">CARS</span>
           </h1>
-          <div>
+          <div className=" flex">
             {isLoading ? (
               <p>Loading...</p>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <Carousel {...settings}>
                 {featuredCars.map((car) => (
                   <Link key={car.id} to={`/list/car/${car.id}`}>
-                    <div
-                      key={car.id}
-                      className="card text-white bg-[#3e3e42] shadow-md"
-                    >
+                    <div key={car.id} className="bg-white shadow-md">
                       <div className="image-container">
                         {car.photo_url ? (
                           <img
@@ -52,10 +76,12 @@ const Dashboard = ({ user }) => {
                       </div>
                       <div className="card-content">
                         <h3>{car.name}</h3>{' '}
-                        <h3 className="text-orange-500 font-medium text-lg">
+                        <h3 className="text-[#d60000] font-medium text-xl">
                           ${car.price}
                         </h3>{' '}
-                        <p className="text-sm h-20 pb-4">{car.description}</p>{' '}
+                        <p className="text-sm mb-5 h-14 line-clamp-3">
+                          {car.description}
+                        </p>{' '}
                         <div className="grid grid-cols-2">
                           <div className="flex gap-2 items-center">
                             <BsSpeedometer2 className="text-lg" />
@@ -79,11 +105,11 @@ const Dashboard = ({ user }) => {
                     </div>
                   </Link>
                 ))}
-              </div>
+              </Carousel>
             )}
           </div>
           <Link to="/list">
-            <button className="rounded py-2 px-4 font-medium mt-4 bg-orange-500 text-white hover:bg-orange-400">
+            <button className="rounded py-2  mb-4 ml-[30vw] px-4 font-medium mt-14 bg-[#d60000] text-white hover:bg-red-700">
               SEE ALL
             </button>
           </Link>

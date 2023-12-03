@@ -79,7 +79,7 @@ const NewBrandModal = ({ token, open2, onClose, refetch }) => {
             </div>
 
             <button
-              className="bg-orange-500 text-white self-center font-medium mt-10 py-2 w-28 rounded"
+              className="bg-[#d60000] hover:bg-red-700 text-white self-center font-medium mt-10 py-2 w-28 rounded"
               type="submit"
             >
               Add Brand

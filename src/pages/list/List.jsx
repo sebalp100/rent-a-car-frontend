@@ -14,19 +14,19 @@ const CarList = ({ user }) => {
   const showMenu = () => setSidebar(true);
   const closeMenu = () => setSidebar(false);
   return (
-    <div className="flex bg-[#1e1e1e]">
+    <div className="flex bg-[#fdf9f9] min-h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
         <div className="flex justify-center pt-7 pb-7">
-          <div className="flex flex-wrap justify-center text-white gap-10">
+          <div className="flex flex-wrap justify-center gap-10">
             {isLoading ? (
               <p>Loading data...</p>
             ) : (
               brands?.map((brand) => (
                 <Link key={brand.id} to={`/list/${brand.id}`}>
                   <div
-                    className="flex flex-col bg-[#3e3e42] justify-center h-80 relative polaroid items-center w-[20rem]"
+                    className="flex flex-col bg-white justify-center h-80 relative polaroid items-center w-[20rem]"
                     key={brand.id}
                   >
                     <div>

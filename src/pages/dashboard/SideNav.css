@@ -15,7 +15,7 @@
 }
 
 .active {
-  background-color: #f97316 !important;
+  background-color: #d60000;
   color: white;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .side-link a:hover {
-  background-color: #f97316;
+  background-color: #d60000;
 }
 
 .card {
@@ -64,10 +64,60 @@
   gap: 5px;
 }
 
+.slider-list {
+  gap: 25px;
+  list-style: none;
+}
+
+.paging-dot {
+  fill: black;
+  width: 10px;
+  height: 10px;
+  margin-right: 4px;
+}
+
+.slider-control-bottomcenter > div {
+  top: 33px !important;
+}
+
+circle {
+  width: 10px;
+  height: 10px;
+}
+
+.slider-control-centerleft button {
+  margin-left: -4.7vw;
+
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-weight: 600;
+}
+
+.slider-control-centerright button {
+  margin-right: -5.7vw;
+
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  font-weight: 600;
+}
+
+.slider-container {
+  width: 90%;
+}
+
 @media only screen and (min-width: 768px) {
   .sidebar-dashboard {
     left: 0;
     z-index: 1;
+  }
+
+  .slider-container {
+    width: 88%;
+    display: inline;
+  }
+
+  :root {
+    --slides-to-show: 2;
   }
 }
 

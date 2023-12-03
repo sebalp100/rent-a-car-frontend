@@ -5,7 +5,6 @@ import {
   MdCarCrash,
   MdDirectionsCarFilled,
   MdAssignment,
-  MdSettings,
   MdCopyright,
 } from 'react-icons/md';
 import { CiLogout } from 'react-icons/ci';
@@ -21,14 +20,14 @@ const SideNav = (props) => {
 
   return (
     <div
-      className={`h-screen w-[16.9%] bg-[#3e3e42] text-white flex flex-col border-r-2 border-slate-600  justify-start fixed items-center sidebar-dashboard ${
+      className={`h-screen w-[16.9%] bg-white flex flex-col border-r-2 border-slate-200  justify-start fixed items-center sidebar-dashboard ${
         props.sidebar ? 'show' : ''
       }`}
     >
       <Link to="/">
         <img
-          className="pb-4 pt-[3.8vh] w-[13vw] mb-10"
-          src="images/rentacaricon.png"
+          className="pb-4 pt-[2.8vh] w-[9vw] mb-9"
+          src="http://localhost:5173/images/Logorent.png"
           alt="Logo"
         />
       </Link>
@@ -81,13 +80,6 @@ const SideNav = (props) => {
           >
             <MdCopyright className="text-2xl menu-links-text"></MdCopyright>
             <p className="menu-links-text">Brands</p>
-          </NavLink>
-          <NavLink
-            to="/settings"
-            className="flex cursor-pointer hover:text-white items-center py-[0.4rem] pl-2 sidebar-item gap-2 font-medium menu-item-name rounded-sm"
-          >
-            <MdSettings className="text-2xl menu-links-text"></MdSettings>
-            <p className="menu-links-text">Settings</p>
           </NavLink>
         </ul>
       </div>

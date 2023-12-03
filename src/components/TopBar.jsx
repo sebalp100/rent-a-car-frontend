@@ -23,7 +23,7 @@ const TopBar = ({ email }) => {
   const profilePic = decryptedUserData?.avatar_url;
 
   return (
-    <div className="flex bg-[#3e3e42] border-slate-600 border-b-[0.1rem] text-white justify-end items-center h-14 w-full shadow">
+    <div className="flex bg-white justify-end items-center h-14 w-full shadow">
       <div className="flex font-medium gap-3 mr-5 items-center">
         {email2 ? (
           <p className="text-sm">{email2}</p>

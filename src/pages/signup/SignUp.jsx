@@ -38,20 +38,20 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex bg-[#fdf9f9] min-h-[100vh]">
       <div className="image-background2 hidden lg:block"></div>
       <div className="lg:w-[50%] flex flex-col items-center justify-center">
         <img
-          src="images/logo2.png"
+          src="images/Logorent.png"
           alt="Logo"
-          className="w-[50%] mb-[4rem] mt-28 lg:mt-0"
+          className="w-[15%] mb-[8%] mt-28 lg:mt-0"
         />
         <div className="flex flex-col justify-center items-center">
           <form
             onSubmit={handleSubmit}
-            className="bg-white lg:w-[32vw] px-8 rounded-lg w-[80vw] sm:w-[60vw]"
+            className=" lg:w-[32vw] px-8 rounded-lg w-[80vw] sm:w-[60vw]"
           >
-            <div className="mb-4 relative">
+            <div className="mb-2 relative">
               <label
                 className="block text-gray-700 text-[1rem] font-medium mb-2"
                 htmlFor="email"
@@ -63,14 +63,14 @@ const SignUp = () => {
                 id="email"
                 value={email}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full shadow text-sm border rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                className="w-full shadow text-sm border rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                 placeholder="Enter your email"
                 autoComplete="off"
                 required
               />
               <MdEmail className="h-5 w-5 absolute right-4 top-[73%] transform -translate-y-1/2"></MdEmail>
             </div>
-            <div className="mb-4 relative">
+            <div className="mb-2 relative">
               <label
                 className="block text-gray-700 text-[1rem] font-medium mb-2"
                 htmlFor="name"
@@ -82,14 +82,14 @@ const SignUp = () => {
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full shadow text-sm border rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                className="w-full shadow text-sm border rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                 placeholder="Enter your name"
                 autoComplete="off"
                 required
               />
               <FaAddressCard className="h-5 w-5 absolute right-4 top-[73%] transform -translate-y-1/2"></FaAddressCard>
             </div>
-            <div className="mb-4 relative">
+            <div className="mb-2 relative">
               <label
                 className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
                 htmlFor="password"
@@ -101,13 +101,13 @@ const SignUp = () => {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                 placeholder="6+ Characters, 1 Capital letter"
                 required
               />
               <MdLock className="h-5 w-5 absolute right-4 top-[73%] transform -translate-y-1/2"></MdLock>
             </div>
-            <div className="mb-4 relative">
+            <div className="mb-2 relative">
               <label
                 className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
                 htmlFor="confirmpassword"
@@ -119,13 +119,13 @@ const SignUp = () => {
                 id="confirmpassword"
                 value={confirmpassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                 placeholder="6+ Characters, 1 Capital letter"
                 required
               />
               <MdLock className="h-5 w-5 absolute right-4 top-[73%] transform -translate-y-1/2"></MdLock>
             </div>
-            <div className="mb-4 relative">
+            <div className="mb-2 relative">
               <label
                 className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
                 htmlFor="awatar"
@@ -136,7 +136,7 @@ const SignUp = () => {
                 type="file"
                 id="avatar"
                 onChange={(e) => setAvatar(e.target.files[0])}
-                className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                 placeholder="Choose a picture"
                 required
               />
@@ -144,7 +144,7 @@ const SignUp = () => {
             <div className="flex items-center justify-between">
               <button
                 type="submit"
-                className=" text-white bg-orange-500 mt-4 w-full py-[0.7rem] shadow font-medium px-4 rounded-md hover:bg-orange-400 focus:outline-none focus:bg-orange-400"
+                className=" text-white bg-[#d60000] mt-4 w-full py-[0.7rem] shadow font-medium px-4 rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700"
               >
                 Sign Up
               </button>
@@ -153,9 +153,7 @@ const SignUp = () => {
           <span className="text-sm font-satoshi flex gap-2 justify-center font-bold mt-6">
             Already have an account?{' '}
             <Link to="/login">
-              <p className="text-sm font-medium flex text-orange-500">
-                Sign In
-              </p>
+              <p className="text-sm font-medium flex text-[#d60000]">Sign In</p>
             </Link>
           </span>
         </div>

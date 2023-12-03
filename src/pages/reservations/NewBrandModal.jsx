@@ -45,7 +45,7 @@ const NewReservationModal = ({ token, open2, onClose, userId }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center">
       <Dialog open={open2} onClose={onClose} fullWidth maxWidth={'sm'}>
-        <div className="modal  z-10 bg-[#3e3e42] text-white p-6 rounded-lg shadow-lg relative">
+        <div className="modal  z-10 p-6 rounded-lg shadow-lg relative">
           <button
             onClick={onClose}
             className="absolute top-0 right-0 p-2 hover:text-gray-700"
@@ -114,7 +114,7 @@ const NewReservationModal = ({ token, open2, onClose, userId }) => {
             </div>
 
             <button
-              className="bg-orange-500 text-white hover:bg-white hover:text-orange-600 self-center font-semibold text-lg mt-10 py-2 w-28 rounded"
+              className="bg-[#d60000] text-white hover:bg-red-700  self-center font-semibold text-lg mt-10 py-2 w-28 rounded"
               type="submit"
             >
               Reserve

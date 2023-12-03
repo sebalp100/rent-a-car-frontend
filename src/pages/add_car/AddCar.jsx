@@ -4,6 +4,7 @@ import CryptoJS from 'crypto-js';
 import { useGetBrandsQuery } from '../../api/authApi';
 import SideNav from '../dashboard/SideNav';
 import TopBar from '../../components/TopBar';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AddCar = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
@@ -67,25 +68,24 @@ const AddCar = ({ user }) => {
         mode: 'cors',
       })
       .then(() => {
-        console.log('Registration succesfull');
+        toast.success('Car added succesfully');
       })
       .catch((error) => {
         console.error(error);
+        toast.error(error.data.message);
       });
   };
 
   return (
-    <div className="flex">
+    <div className="flex bg-[#fdf9f9] min-h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
+        <Toaster />
         <TopBar email={email}></TopBar>
         <div className="w-full flex flex-col items-center h-[92vh] justify-center">
           <h1 className="mb-[1rem] text-3xl font-bold">ADD A NEW CAR</h1>
           <div className="flex flex-col justify-center w-full items-center">
-            <form
-              onSubmit={handleSubmit}
-              className="bg-white px-8 rounded-lg w-full"
-            >
+            <form onSubmit={handleSubmit} className="px-8 rounded-lg w-full">
               <div className="flex gap-4 w-full">
                 <div className="w-[50%]">
                   <div className="mb-4 relative">
@@ -99,7 +99,7 @@ const AddCar = ({ user }) => {
                       id="brand"
                       value={brand_id}
                       onChange={(e) => setBrand(e.target.value)}
-                      className="w-full shadow text-sm border rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      className="w-full shadow text-sm border rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                       required
                     >
                       <option value="" disabled>
@@ -128,7 +128,7 @@ const AddCar = ({ user }) => {
                       id="model"
                       value={model}
                       onChange={(e) => setModel(e.target.value)}
-                      className="w-full shadow text-sm border rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      className="w-full shadow text-sm border rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                       placeholder="Enter the model"
                       autoComplete="off"
                       required
@@ -146,7 +146,7 @@ const AddCar = ({ user }) => {
                       id="year"
                       value={year}
                       onChange={(e) => setYear(e.target.value)}
-                      className="w-full shadow text-sm border rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      className="w-full shadow text-sm border rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                       placeholder="Enter the year"
                       autoComplete="off"
                       required
@@ -164,7 +164,7 @@ const AddCar = ({ user }) => {
                       id="topSpeed"
                       value={topSpeed}
                       onChange={(e) => setTopSpeed(e.target.value)}
-                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                       placeholder="6+ Characters, 1 Capital letter"
                       required
                     />
@@ -182,7 +182,7 @@ const AddCar = ({ user }) => {
                       rows={3}
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
-                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                       placeholder="Enter a description"
                       required
                     />
@@ -201,7 +201,7 @@ const AddCar = ({ user }) => {
                       id="cc"
                       value={cc}
                       onChange={(e) => setCC(e.target.value)}
-                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                       placeholder="Enter CC"
                       required
                     />
@@ -218,7 +218,7 @@ const AddCar = ({ user }) => {
                       id="engine"
                       value={engine}
                       onChange={(e) => setEngine(e.target.value)}
-                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                       placeholder="Enter engine"
                       required
                     />
@@ -235,7 +235,7 @@ const AddCar = ({ user }) => {
                       id="mileage"
                       value={mileage}
                       onChange={(e) => setMileage(e.target.value)}
-                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                       placeholder="Enter mileage"
                       required
                     />
@@ -252,7 +252,7 @@ const AddCar = ({ user }) => {
                       id="price"
                       value={price}
                       onChange={(e) => setPrice(e.target.value)}
-                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                       placeholder="Enter price"
                       required
                     />
@@ -283,7 +283,7 @@ const AddCar = ({ user }) => {
                         type="file"
                         id="photo"
                         onChange={(e) => setPhoto(e.target.files[0])}
-                        className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                        className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                         placeholder="Choose a picture"
                         required
                       />
@@ -294,7 +294,7 @@ const AddCar = ({ user }) => {
               <div className="flex items-center justify-end">
                 <button
                   type="submit"
-                  className=" text-white bg-orange-500 mt-4 py-[0.5rem] shadow font-medium px-4 rounded-md hover:bg-orange-400 focus:outline-none focus:bg-orange-400"
+                  className=" text-white bg-[#d60000] mt-4 py-[0.5rem] shadow font-medium px-4 rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700"
                 >
                   Add Car
                 </button>

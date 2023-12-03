@@ -139,7 +139,7 @@ const Brands = ({ user }) => {
   );
 
   return (
-    <div className="flex">
+    <div className="flex bg-[#fdf9f9] min-h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
@@ -158,7 +158,7 @@ const Brands = ({ user }) => {
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                   <button
                     onClick={() => handleAddModal()}
-                    className="bg-orange-500 hover:bg-orange-400 py-2 px-2 text-white font-medium rounded-md shadow-sm"
+                    className="bg-[#d60000] hover:bg-red-700 py-2 px-2 text-white font-medium rounded-md shadow-sm"
                   >
                     Add Brand +
                   </button>
@@ -220,7 +220,7 @@ const Brands = ({ user }) => {
                   </div>
 
                   <button
-                    className="bg-orange-500 text-white self-center font-medium px-4 mt-10 py-2 w-20 rounded"
+                    className="bg-[#d60000] hover:bg-red-700 text-white self-center font-medium px-4 mt-10 py-2 w-20 rounded"
                     type="submit"
                   >
                     Edit

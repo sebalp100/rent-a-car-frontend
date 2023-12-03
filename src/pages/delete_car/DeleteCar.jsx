@@ -91,7 +91,7 @@ const DeleteCar = ({ user }) => {
   );
 
   return (
-    <div className="flex">
+    <div className="flex bg-[#fdf9f9] min-h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
