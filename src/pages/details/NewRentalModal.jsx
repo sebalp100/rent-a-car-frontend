@@ -1,20 +1,21 @@
 import { Dialog } from '@mui/material';
 import { useState } from 'react';
 import { FaRegWindowClose } from 'react-icons/fa';
-import {
-  useAddReservationMutation,
-  useGetAvailableCarsQuery,
-} from '../../api/authApi';
+import { useAddReservationMutation } from '../../api/authApi';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-const NewReservationModal = ({ token, open2, onClose, userId }) => {
+const NewReservationModalDetails = ({
+  token,
+  open2,
+  onClose,
+  userId,
+  modelId,
+}) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [carId, setCarId] = useState('');
-  const navigate = useNavigate();
 
-  const { data: available } = useGetAvailableCarsQuery(token);
+  const navigate = useNavigate();
 
   const [addReservation, { isError }] = useAddReservationMutation();
 
@@ -22,7 +23,7 @@ const NewReservationModal = ({ token, open2, onClose, userId }) => {
     e.preventDefault();
 
     const rental = {
-      car_id: carId,
+      car_id: modelId,
       user_id: userId,
       rental_date: startDate,
       return_date: endDate,
@@ -32,19 +33,17 @@ const NewReservationModal = ({ token, open2, onClose, userId }) => {
 
     try {
       await addReservation(obj).unwrap();
-
-      toast.success('Reservation added successfully');
       onClose();
+      navigate('/reservations');
+      setTimeout(() => {
+        toast.success('Reservation added successfully');
+      }, 1500);
     } catch (error) {
       const errorMessagesArray = error.data.message?.split(', ');
       const errorAuth = error.data.error;
 
       if (errorAuth) {
-        navigate('/login');
-        setTimeout(() => {
-toast('Please Login to rent a car', { icon: '⚠️' });
-        }, 1000)
-        
+        toast.error(errorAuth);
       }
 
       errorMessagesArray?.forEach((errorMessage) => {
@@ -67,28 +66,6 @@ toast('Please Login to rent a car', { icon: '⚠️' });
             <h2 className="text-2xl text-center font-bold mb-4">
               Add Reservation
             </h2>
-            <div className="mb-4">
-              <label
-                className="block font-satoshi text-gray-700 text-[1rem] font-medium mb-2"
-                htmlFor="model"
-              >
-                Model
-              </label>
-              <select
-                id="model"
-                value={carId}
-                onChange={(e) => setCarId(e.target.value)}
-                className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none "
-              >
-                <option value="">Select a model</option>
-                {available?.map((car) => (
-                  <option key={car.id} value={car.id}>
-                    {car.model} {car.year}
-                  </option>
-                ))}
-              </select>
-            </div>
-
             <div className="mb-4 flex justify-between">
               <div className="w-[40%]">
                 <label
@@ -137,4 +114,4 @@ toast('Please Login to rent a car', { icon: '⚠️' });
   );
 };
 
-export default NewReservationModal;
+export default NewReservationModalDetails;

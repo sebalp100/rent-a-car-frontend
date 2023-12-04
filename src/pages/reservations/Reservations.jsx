@@ -210,10 +210,10 @@ const Reservations = ({ user }) => {
     () =>
       createTheme({
         palette: {
-          mode: 'light', //let's use the same dark/light mode as the global theme
-          primary: globalTheme.palette.secondary, //swap in the secondary color as the primary for the table
+          mode: 'light',
+          primary: globalTheme.palette.secondary,
           info: {
-            main: 'rgb(255,122,0)', //add in a custom color for the toolbar alert background stuff
+            main: 'rgb(255,122,0)',
           },
         },
       }),
@@ -222,7 +222,7 @@ const Reservations = ({ user }) => {
 
   return (
     <div className="flex bg-[#fdf9f9] min-h-[100vh]">
-      <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
+      <SideNav sidebar={sidebar} closeMenu={closeMenu} user={user}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
         <div className="pt-14 px-10 w-[100vw] md:w-full">
@@ -232,9 +232,8 @@ const Reservations = ({ user }) => {
               columns={columns}
               data={reservations ?? []}
               state={{ isLoading }}
-              muiTableContainerProps={{ sx: { maxHeight: '70vh' } }}
+              muiTableContainerProps={{ sx: { maxHeight: '65vh' } }}
               muiTableHeadCellProps={{
-                //no useTheme hook needed, just use the `sx` prop with the theme callback
                 sx: (theme) => ({
                   color: theme.palette.secondary,
                 }),

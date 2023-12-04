@@ -10,11 +10,18 @@ import {
 import { CiLogout } from 'react-icons/ci';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './SideNav.css';
+import { useLogoutMutation } from '../../api/authApi';
 
 const SideNav = (props) => {
   const navigate = useNavigate();
+  const userRole = props.user?.role;
+  const token = props.user?.token;
+
+  const [logout] = useLogoutMutation();
 
   async function handleClick() {
+    logout(token);
+    localStorage.removeItem('Rentacar');
     navigate('/login');
   }
 
@@ -60,32 +67,38 @@ const SideNav = (props) => {
             <MdAssignment className="text-2xl menu-links-text"></MdAssignment>
             <p className="menu-links-text">Reservations</p>
           </NavLink>
-          <NavLink
-            to="/add"
-            className="flex cursor-pointer hover:text-white items-center py-[0.4rem] pl-2 sidebar-item gap-2 font-medium menu-item-name rounded-sm"
-          >
-            <MdLocalCarWash className="text-2xl menu-links-text"></MdLocalCarWash>
-            <p className="menu-links-text">Add Car</p>
-          </NavLink>
-          <NavLink
-            to="/remove"
-            className="flex cursor-pointer hover:text-white items-center py-[0.4rem] pl-2 sidebar-item gap-2 font-medium menu-item-name rounded-sm"
-          >
-            <MdCarCrash className="text-2xl menu-links-text"></MdCarCrash>
-            <p className="menu-links-text">Remove Car</p>
-          </NavLink>
-          <NavLink
-            to="/brands"
-            className="flex cursor-pointer hover:text-white items-center py-[0.4rem] pl-2 sidebar-item gap-2 font-medium menu-item-name rounded-sm"
-          >
-            <MdCopyright className="text-2xl menu-links-text"></MdCopyright>
-            <p className="menu-links-text">Brands</p>
-          </NavLink>
+          {userRole === 'admin' && (
+            <>
+              <NavLink
+                to="/add"
+                className="flex cursor-pointer hover:text-white items-center py-[0.4rem] pl-2 sidebar-item gap-2 font-medium menu-item-name rounded-sm"
+              >
+                <MdLocalCarWash className="text-2xl menu-links-text"></MdLocalCarWash>
+                <p className="menu-links-text">Add Car</p>
+              </NavLink>
+              <NavLink
+                to="/remove"
+                className="flex cursor-pointer hover:text-white items-center py-[0.4rem] pl-2 sidebar-item gap-2 font-medium menu-item-name rounded-sm"
+              >
+                <MdCarCrash className="text-2xl menu-links-text"></MdCarCrash>
+                <p className="menu-links-text">Remove Car</p>
+              </NavLink>
+              <NavLink
+                to="/brands"
+                className="flex cursor-pointer hover:text-white items-center py-[0.4rem] pl-2 sidebar-item gap-2 font-medium menu-item-name rounded-sm"
+              >
+                <MdCopyright className="text-2xl menu-links-text"></MdCopyright>
+                <p className="menu-links-text">Brands</p>
+              </NavLink>
+            </>
+          )}
         </ul>
       </div>
       <div className="flex flex-col logout-sidebar w-10/12 mb-[5vh]">
+        {userRole != 'admin' && <div className="pt-[20vh]"></div>}
         <div className="flex pl-2 cursor-pointer mt-[30vh] py-[0.4rem] gap-2 text-red-500 font-medium hover:bg-red-700 menu-item-name hover:text-white rounded-sm">
           <CiLogout className="text-2xl menu-links-text"></CiLogout>
+
           <button onClick={handleClick}>Logout</button>
         </div>
       </div>

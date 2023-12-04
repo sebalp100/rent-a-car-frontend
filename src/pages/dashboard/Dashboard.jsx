@@ -5,7 +5,9 @@ import { BsSpeedometer2 } from 'react-icons/bs';
 import { GiPathDistance } from 'react-icons/gi';
 import { IoMdSettings } from 'react-icons/io';
 import { FaCubes } from 'react-icons/fa';
-import { useGetFeaturedQuery } from '../../api/authApi';
+import {
+  useGetFeaturedQuery,
+} from '../../api/authApi';
 import { Link } from 'react-router-dom';
 import Carousel from 'nuka-carousel';
 
@@ -46,7 +48,7 @@ const Dashboard = ({ user }) => {
   const closeMenu = () => setSidebar(false);
   return (
     <div className="bg-[#fdf9f9] min-h-[100vh]">
-      <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
+      <SideNav sidebar={sidebar} closeMenu={closeMenu} user={user}></SideNav>
       <div className="md:ml-[16.68vw]  md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
         <div className="ml-[8vw]">

@@ -66,6 +66,7 @@ export const authLog = createApi({
             'Authorization': `Bearer ${brand.token}`,
           },
         }),
+      providesTags: ['Details'],
     }),
     getFeatured: builder.query({
       query: (authToken) => (
@@ -90,11 +91,12 @@ export const authLog = createApi({
       query: (authToken) => (
         {
           url: '/logout',
-          method: 'POST',
+          method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${authToken}`,
           },
         }),
+      invalidatesTags: ['Reservations'],
     }),
     addReservation: builder.mutation({
       query: (reservation) => (

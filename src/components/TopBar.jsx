@@ -29,7 +29,7 @@ const TopBar = ({ email }) => {
           <p className="text-sm">{email2}</p>
         ) : (
           <Link to="/login">
-            <button className="bg-orange-400 hover:bg-orange-300 rounded px-6 py-1 text-white font-medium">
+            <button className="bg-[#d60000] hover:bg-red-700 rounded px-6 py-1 text-white font-medium">
               Login
             </button>
           </Link>

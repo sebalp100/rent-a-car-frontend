@@ -15,6 +15,7 @@ import Brands from './pages/brands/Brands';
 import CarListByBrand from './pages/list/ListByBrand';
 import CarDetails from './pages/details/CarDetails';
 import Reservations from './pages/reservations/Reservations';
+import Missing from './pages/missing/Missing';
 
 function App() {
   const decryptData = (encryptedData, key) => {
@@ -32,6 +33,8 @@ function App() {
   const storedEncryptedData = localStorage.getItem('Rentacar') || {};
   const decryptedUserData = decryptData(storedEncryptedData, key);
 
+  const userRole = decryptedUserData.role;
+
   return (
     <>
       <Routes>
@@ -48,6 +51,7 @@ function App() {
             path="/reservations"
             element={<Reservations user={decryptedUserData} />}
           />
+
           <Route
             path="/list/:brandId"
             element={<CarListByBrand user={decryptedUserData} />}
@@ -56,14 +60,26 @@ function App() {
             path="/list/car/:carId"
             element={<CarDetails user={decryptedUserData} />}
           />
-          <Route path="/add" element={<AddCar user={decryptedUserData} />} />
-          <Route
-            path="/remove"
-            element={<DeleteCar user={decryptedUserData} />}
-          />
-          <Route path="/brands" element={<Brands user={decryptedUserData} />} />
+          {userRole === 'admin' && (
+            <>
+              <Route
+                path="/add"
+                element={<AddCar user={decryptedUserData} />}
+              />
+              <Route
+                path="/remove"
+                element={<DeleteCar user={decryptedUserData} />}
+              />
+              <Route
+                path="/brands"
+                element={<Brands user={decryptedUserData} />}
+              />
+            </>
+          )}
+
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/*" element={<Missing />} />
         </Route>
       </Routes>
     </>

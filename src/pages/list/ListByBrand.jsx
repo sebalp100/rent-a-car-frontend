@@ -24,7 +24,7 @@ const CarListByBrand = ({ user }) => {
 
   return (
     <div className="flex bg-[#fdf9f9] min-h-[100vh]">
-      <SideNav sidebar={sidebar} closeMenu={closeMenu}></SideNav>
+      <SideNav sidebar={sidebar} closeMenu={closeMenu} user={user}></SideNav>
       <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
         <div className="flex justify-center pt-7 pb-7">
@@ -53,7 +53,7 @@ const CarListByBrand = ({ user }) => {
                       <h3 className="text-[#d60000] font-medium text-lg">
                         ${car.price}
                       </h3>{' '}
-                      <p className="text-sm mb-5 line-clamp-3">
+                      <p className="text-sm mb-5 h-14 line-clamp-3">
                         {car.description}
                       </p>{' '}
                       <div className="grid grid-cols-2">

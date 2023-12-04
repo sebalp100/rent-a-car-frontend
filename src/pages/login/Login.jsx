@@ -4,6 +4,7 @@ import { MdEmail, MdLock } from 'react-icons/md';
 import { useState } from 'react';
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
+import { Toaster } from 'react-hot-toast';
 
 const Login = () => {
   const [email, setUsername] = useState('');
@@ -41,12 +42,11 @@ const Login = () => {
         const token = response.headers['authorization']?.split(' ')[1];
         const { id, email, name, role, avatar_url } = response.data.data;
         const user = { id, email, token, name, role, avatar_url };
-        console.log(user);
 
         const encryptedUserData = encryptData(user, key);
         localStorage.setItem('Rentacar', encryptedUserData);
 
-        navigate('/dashboard');
+        navigate('/dashboard', { state: { reload: true } });
       })
       .catch((error) => {
         console.error(error);
@@ -55,6 +55,7 @@ const Login = () => {
 
   return (
     <div className="flex bg-[#fdf9f9]">
+      <Toaster />
       <div className="image-background hidden lg:block"></div>
       <div className="lg:w-[50%] flex flex-col items-center justify-center">
         <img
