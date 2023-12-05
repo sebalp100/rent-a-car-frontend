@@ -46,7 +46,9 @@ const Login = () => {
         const encryptedUserData = encryptData(user, key);
         localStorage.setItem('Rentacar', encryptedUserData);
 
-        navigate('/dashboard', { state: { reload: true } });
+        navigate('/dashboard');
+
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);

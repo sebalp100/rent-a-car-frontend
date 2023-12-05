@@ -5,9 +5,7 @@ import { BsSpeedometer2 } from 'react-icons/bs';
 import { GiPathDistance } from 'react-icons/gi';
 import { IoMdSettings } from 'react-icons/io';
 import { FaCubes } from 'react-icons/fa';
-import {
-  useGetFeaturedQuery,
-} from '../../api/authApi';
+import { useGetFeaturedQuery } from '../../api/authApi';
 import { Link } from 'react-router-dom';
 import Carousel from 'nuka-carousel';
 

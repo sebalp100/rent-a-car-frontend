@@ -16,6 +16,7 @@ const Reservations = ({ user }) => {
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [photo, setPhoto] = useState(null);
   const token = user?.token;
+  console.log(token);
   const email = user?.email;
   const userId = user?.id;
 
