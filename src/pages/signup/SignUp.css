@@ -1,7 +1,7 @@
 .image-background2 {
   width: 50%;
   height: 100vh;
-  background-image: url('pexels-alleksana-4264322.jpg');
+  background-image: url('/pexels-alleksana-4264322.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
