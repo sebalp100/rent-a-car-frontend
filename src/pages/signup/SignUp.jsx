@@ -27,12 +27,16 @@ const SignUp = () => {
     formData.append('user[avatar]', avatar);
 
     axios
-      .post(`http://localhost:3001/signup`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        mode: 'cors',
-      })
+      .post(
+        `http://rent-a-car-backend-production-d292.up.railway.app/signup`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          mode: 'cors',
+        }
+      )
       .then(() => {
         toast.success('Registration succesfull');
         setError(null);

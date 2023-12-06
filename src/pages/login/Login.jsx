@@ -26,7 +26,7 @@ const Login = () => {
 
     axios
       .post(
-        `http://localhost:3001/login`,
+        `http://rent-a-car-backend-production-d292.up.railway.app/login`,
         {
           user: {
             email: email,
