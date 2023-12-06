@@ -4,12 +4,13 @@ import SideNav from '../dashboard/SideNav';
 import './CarList.css';
 import { useGetBrandsQuery } from '../../api/authApi';
 import { Link } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 
 const CarList = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
   const token = user?.token;
   const email = user?.email;
-  const { data: brands, isLoading } = useGetBrandsQuery(token);
+  const { data: brands, isLoading, isError } = useGetBrandsQuery(token);
 
   const showMenu = () => setSidebar(true);
   const closeMenu = () => setSidebar(false);
@@ -21,7 +22,9 @@ const CarList = ({ user }) => {
         <div className="flex justify-center pt-7 pb-7">
           <div className="flex flex-wrap justify-center gap-10">
             {isLoading ? (
-              <p>Loading data...</p>
+              <div className="absolute right-[40%] top-[45%] justify-center">
+                <CircularProgress color="inherit" />
+              </div>
             ) : (
               brands?.map((brand) => (
                 <Link key={brand.id} to={`/list/${brand.id}`}>
@@ -45,6 +48,7 @@ const CarList = ({ user }) => {
               ))
             )}
           </div>
+          {isError && <p>Connection Error</p>}
         </div>
       </div>
     </div>

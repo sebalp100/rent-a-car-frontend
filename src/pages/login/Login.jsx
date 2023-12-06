@@ -1,16 +1,18 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Login.css';
 import { MdEmail, MdLock } from 'react-icons/md';
 import { useState } from 'react';
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { setUserRole } from '../../data/userSlice';
 
 const Login = () => {
   const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const encryptData = (data, key) => {
     const encrypted = CryptoJS.AES.encrypt(JSON.stringify(data), key);
@@ -43,15 +45,16 @@ const Login = () => {
         const { id, email, name, role, avatar_url } = response.data.data;
         const user = { id, email, token, name, role, avatar_url };
 
+        const userRole = user.role;
+        dispatch(setUserRole({ userRole: userRole, token }));
+
         const encryptedUserData = encryptData(user, key);
         localStorage.setItem('Rentacar', encryptedUserData);
 
-        navigate('/dashboard');
-
-        window.location.reload();
+        window.location.href = '/dashboard';
       })
       .catch((error) => {
-        console.error(error);
+        toast.error(error.response.data);
       });
   };
 

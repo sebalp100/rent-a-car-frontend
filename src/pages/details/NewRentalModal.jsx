@@ -43,7 +43,7 @@ const NewReservationModalDetails = ({
       const errorAuth = error.data.error;
 
       if (errorAuth) {
-        toast.error(errorAuth);
+        toast.error('Please Login');
       }
 
       errorMessagesArray?.forEach((errorMessage) => {

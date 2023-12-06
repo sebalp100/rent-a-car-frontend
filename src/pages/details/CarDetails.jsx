@@ -9,6 +9,7 @@ import { IoMdSettings } from 'react-icons/io';
 import { FaCubes, FaBackward } from 'react-icons/fa';
 import NewReservationModalDetails from './NewRentalModal';
 import { Toaster } from 'react-hot-toast';
+import { CircularProgress } from '@mui/material';
 
 const CarDetails = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
@@ -46,7 +47,9 @@ const CarDetails = ({ user }) => {
         <div className="flex justify-center content-center pt-7 pb-7">
           <div className="flex flex-wrap justify-center gap-10">
             {isLoading ? (
-              <p>Loading data...</p>
+              <div className="absolute right-[40%] top-[45%] justify-center">
+                <CircularProgress color="inherit" />
+              </div>
             ) : (
               <div className="flex flex-col px-10">
                 <div

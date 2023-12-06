@@ -8,6 +8,7 @@ import { FaCubes } from 'react-icons/fa';
 import { useGetFeaturedQuery } from '../../api/authApi';
 import { Link } from 'react-router-dom';
 import Carousel from 'nuka-carousel';
+import { CircularProgress } from '@mui/material';
 
 const Dashboard = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
@@ -55,7 +56,9 @@ const Dashboard = ({ user }) => {
           </h1>
           <div className=" flex">
             {isLoading ? (
-              <p>Loading...</p>
+              <div className="absolute right-[40%] top-[45%] justify-center">
+                <CircularProgress color="inherit" />
+              </div>
             ) : (
               <Carousel {...settings}>
                 {featuredCars.map((car) => (
@@ -108,11 +111,13 @@ const Dashboard = ({ user }) => {
               </Carousel>
             )}
           </div>
-          <Link to="/list">
-            <button className="rounded py-2  mb-4 ml-[30vw] px-4 font-medium mt-14 bg-[#d60000] text-white hover:bg-red-700">
-              SEE ALL
-            </button>
-          </Link>
+          {!isLoading && (
+            <Link to="/list">
+              <button className="rounded py-2  mb-4 ml-[30vw] px-4 font-medium mt-14 bg-[#d60000] text-white hover:bg-red-700">
+                SEE ALL
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

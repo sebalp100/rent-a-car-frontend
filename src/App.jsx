@@ -39,7 +39,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<Homepage user={decryptedUserData} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route
@@ -79,7 +79,7 @@ function App() {
 
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/*" element={<Missing />} />
+          <Route path="/*" element={<Login />} />
         </Route>
       </Routes>
     </>

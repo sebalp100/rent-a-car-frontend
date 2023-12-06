@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MdEmail, MdLock } from 'react-icons/md';
 import { FaAddressCard } from 'react-icons/fa';
 import { useState } from 'react';
 import './SignUp.css';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
   const [email, setUsername] = useState('');
@@ -11,6 +12,9 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmpassword, setConfirmPassword] = useState('');
   const [avatar, setAvatar] = useState(null);
+  const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +24,7 @@ const SignUp = () => {
     formData.append('user[name]', name);
     formData.append('user[role]', 'client');
     formData.append('user[password]', password);
-    formData.append('user[avatar]', avatar); //
+    formData.append('user[avatar]', avatar);
 
     axios
       .post(`http://localhost:3001/signup`, formData, {
@@ -30,10 +34,12 @@ const SignUp = () => {
         mode: 'cors',
       })
       .then(() => {
-        console.log('Registration succesfull');
+        toast.success('Registration succesfull');
+        setError(null);
+        navigate('/login');
       })
       .catch((error) => {
-        console.error(error);
+        setError(error.response.data);
       });
   };
 
@@ -156,6 +162,8 @@ const SignUp = () => {
               <p className="text-sm font-medium flex text-[#d60000]">Sign In</p>
             </Link>
           </span>
+
+          {error && <p className=" text-center">{error}</p>}
         </div>
       </div>
     </div>

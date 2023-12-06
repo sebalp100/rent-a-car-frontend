@@ -9,6 +9,7 @@ import { BsSpeedometer2 } from 'react-icons/bs';
 import { GiPathDistance } from 'react-icons/gi';
 import { IoMdSettings } from 'react-icons/io';
 import { FaCubes } from 'react-icons/fa';
+import { CircularProgress } from '@mui/material';
 
 const CarListByBrand = ({ user }) => {
   const [sidebar, setSidebar] = useState(false);
@@ -30,7 +31,9 @@ const CarListByBrand = ({ user }) => {
         <div className="flex justify-center pt-7 pb-7">
           <div className="flex flex-wrap justify-center gap-10">
             {isLoading ? (
-              <p>Loading data...</p>
+              <div className="absolute right-[40%] top-[45%] justify-center">
+                <CircularProgress color="inherit" />
+              </div>
             ) : (
               brandsById?.map((car) => (
                 <Link key={car.id} to={`/list/car/${car.id}`}>
