@@ -105,7 +105,7 @@ const CarDetails = ({ user }) => {
                         .map((paragraph, index, array) => (
                           <p
                             key={index}
-                            className={index < array.length - 1 ? 'mb-2' : ''}
+                            className={index < array.length - 1 ? 'mb-4' : ''}
                           >
                             {paragraph}
                           </p>
