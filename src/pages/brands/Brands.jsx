@@ -143,7 +143,7 @@ const Brands = ({ user }) => {
       <SideNav sidebar={sidebar} closeMenu={closeMenu} user={user}></SideNav>
       <div className="lg:ml-[16.68vw] flex flex-col flex-grow lg:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
-        <div className="pt-14 px-10 w-[100vw] md:w-full">
+        <div className="pt-14 px-10 w-[100vw] lg:w-full">
           <MaterialReactTable
             columns={columns}
             data={brands ?? []}
