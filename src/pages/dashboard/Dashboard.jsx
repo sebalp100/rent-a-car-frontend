@@ -61,7 +61,7 @@ const Dashboard = ({ user }) => {
               </div>
             ) : (
               <Carousel {...settings}>
-                {featuredCars.map((car) => (
+                {featuredCars?.map((car) => (
                   <Link key={car.id} to={`/list/car/${car.id}`}>
                     <div key={car.id} className="bg-white shadow-md">
                       <div className="image-container">
