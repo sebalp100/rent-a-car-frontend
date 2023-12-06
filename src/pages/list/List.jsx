@@ -34,7 +34,7 @@ const CarList = ({ user }) => {
                   >
                     <div>
                       <img
-                        src={`http://localhost:3001${brand.photo_url}`}
+                        src={`https://rent-a-car-backend-production-d292.up.railway.app${brand.photo_url}`}
                         alt={`${brand.name} Logo`}
                         className="p-5"
                       />

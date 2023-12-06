@@ -55,7 +55,7 @@ const DeleteCar = ({ user }) => {
           return (
             <div className="flex gap-1">
               <img
-                src={`http://localhost:3001/${carPic}`}
+                src={`https://rent-a-car-backend-production-d292.up.railway.app/${carPic}`}
                 alt={`${carName} Logo`}
                 className="w-24 object-cover h-16"
               />

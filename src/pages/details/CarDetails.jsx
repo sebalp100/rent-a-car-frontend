@@ -58,7 +58,7 @@ const CarDetails = ({ user }) => {
                 >
                   <div className="w-[50%]">
                     <img
-                      src={`http://rent-a-car-backend-production-d292.up.railway.app${details.photo_url}`}
+                      src={`https://rent-a-car-backend-production-d292.up.railway.app${details.photo_url}`}
                       alt={`${details.model} Picture`}
                       className="shadow"
                     />

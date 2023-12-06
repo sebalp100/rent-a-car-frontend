@@ -36,7 +36,7 @@ const TopBar = ({ email }) => {
         )}
         {profilePic ? (
           <img
-            src={`http://rent-a-car-backend-production-d292.up.railway.app${profilePic}`}
+            src={`https://rent-a-car-backend-production-d292.up.railway.app${profilePic}`}
             alt="Profile picture"
             className="h-8 w-8 rounded-[50%] object-cover"
           />

@@ -41,7 +41,7 @@ const CarListByBrand = ({ user }) => {
                     <div className="image-container">
                       {car.photo_url ? (
                         <img
-                          src={`http://localhost:3001/${car.photo_url}`}
+                          src={`https://rent-a-car-backend-production-d292.up.railway.app/${car.photo_url}`}
                           alt="Card Image"
                           className="card-image"
                         />
