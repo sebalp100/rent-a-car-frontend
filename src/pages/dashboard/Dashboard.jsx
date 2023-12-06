@@ -49,7 +49,11 @@ const Dashboard = ({ user }) => {
     <div className="bg-[#fdf9f9] min-h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu} user={user}></SideNav>
       <div className="lg:ml-[16.68vw]  lg:w-10/12 bg-agent">
-        <TopBar email={email}></TopBar>
+        <TopBar
+          sidebar={sidebar}
+          showMenu={showMenu}
+          closeMenu={closeMenu}
+        ></TopBar>
         <div className="ml-[8vw]">
           <h1 className="ml-[-8vw] pb-10 text-3xl pt-10 text-center  font-medium">
             FEATURED <span className="text-[#d60000]">CARS</span>

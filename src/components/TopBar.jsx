@@ -1,10 +1,9 @@
 import { BsBell } from 'react-icons/bs';
-import { FaUserCircle } from 'react-icons/fa';
-import { FaMagnifyingGlass } from 'react-icons/fa6';
+import { FaBars, FaUserCircle } from 'react-icons/fa';
 import CryptoJS from 'crypto-js';
 import { Link } from 'react-router-dom';
 
-const TopBar = ({ email }) => {
+const TopBar = (props) => {
   const decryptData = (encryptedData, key) => {
     try {
       const bytes = CryptoJS.AES.decrypt(encryptedData, key);
@@ -23,7 +22,13 @@ const TopBar = ({ email }) => {
   const profilePic = decryptedUserData?.avatar_url;
 
   return (
-    <div className="flex bg-white justify-end items-center h-14 w-full shadow">
+    <div className="flex bg-white justify-between items-center h-14 w-full shadow">
+      <button
+        onClick={props.showMenu}
+        className="flex md:hidden ml-3 mt-[2.9vh]"
+      >
+        <FaBars className="open-button" />
+      </button>
       <div className="flex font-medium gap-3 mr-5 items-center">
         {email2 ? (
           <p className="text-sm">{email2}</p>
