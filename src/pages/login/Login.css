@@ -1,7 +1,7 @@
 .image-background {
   width: 50%;
   height: 100vh;
-  background-image: url('images/loginback.jpg');
+  background-image: url('loginback.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
