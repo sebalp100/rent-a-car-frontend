@@ -25,7 +25,7 @@ const TopBar = (props) => {
     <div className="flex bg-white justify-between lg:justify-end items-center h-14 w-full shadow">
       <button
         onClick={props.showMenu}
-        className="flex items-center lg:hidden ml-3 mt-[2.9vh]"
+        className="flex items-center lg:hidden ml-3"
       >
         <FaBars className="open-button" />
       </button>

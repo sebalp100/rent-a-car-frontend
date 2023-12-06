@@ -42,7 +42,7 @@ const SideNav = (props) => {
       </Link>
       <button
         onClick={props.closeMenu}
-        className="absolute top-3 right-4 md:hidden"
+        className="absolute top-3 right-4 lg:hidden"
       >
         <MdClose className="close-button" />
       </button>
