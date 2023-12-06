@@ -36,7 +36,7 @@ const SideNav = (props) => {
       <Link to="/">
         <img
           className="pb-4 pt-[2.8vh] w-[9vw] mb-9"
-          src="images/Logorent.png"
+          src="https://rent-a-car-frontend-git-vercel-deploy-sebalp100.vercel.app/images/Logorent.png"
           alt="Logo"
         />
       </Link>

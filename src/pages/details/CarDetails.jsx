@@ -100,7 +100,11 @@ const CarDetails = ({ user }) => {
                     </div>
                     <span className="w-full h-1 shadow mb-7"></span>
                     <div className="w-full">
-                      <p className="">{details.description}</p>
+                      {details.description?.split('\r\n').map((line, index) => (
+                        <p key={index} className="">
+                          {line}
+                        </p>
+                      ))}
                     </div>
                     <button
                       className="bg-[#d60000] mt-10 py-2 px-2 text-white hover:bg-red-700 disabled:bg-gray-300"

@@ -188,6 +188,7 @@ const AddCar = ({ user }) => {
                       onChange={(e) => setDescription(e.target.value)}
                       className="w-full border shadow text-sm rounded-lg py-3 px-3 text-gray-700 focus:outline-none focus:border-red-700"
                       placeholder="Enter a description"
+                      aria-multiline="true"
                       required
                     />
                   </div>
