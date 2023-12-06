@@ -100,11 +100,11 @@ const CarDetails = ({ user }) => {
                     </div>
                     <span className="w-full h-1 shadow mb-7"></span>
                     <div className="w-full">
-                      {details.description?.split('\r\n').map((line, index) => (
+                      {details.description?.split('\n').map((line, index) => (
                         <>
                           <p key={index}>{line}</p>
                           {index <
-                            details.description.split('\r\n').length - 1 && (
+                            details.description.split('\n').length - 1 && (
                             <br />
                           )}
                         </>
