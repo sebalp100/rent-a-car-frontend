@@ -100,15 +100,16 @@ const CarDetails = ({ user }) => {
                     </div>
                     <span className="w-full h-1 shadow mb-7"></span>
                     <div className="w-full">
-                      {details.description?.split('\n').map((line, index) => (
-                        <>
-                          <p key={index}>{line}</p>
-                          {index <
-                            details.description.split('\n').length - 1 && (
-                            <br />
-                          )}
-                        </>
-                      ))}
+                      {details.description
+                        ?.split(/\r\n/)
+                        .map((paragraph, index, array) => (
+                          <p
+                            key={index}
+                            className={index < array.length - 1 ? 'mb-2' : ''}
+                          >
+                            {paragraph}
+                          </p>
+                        ))}
                     </div>
                     <button
                       className="bg-[#d60000] mt-10 py-2 px-2 text-white hover:bg-red-700 disabled:bg-gray-300"
@@ -125,7 +126,7 @@ const CarDetails = ({ user }) => {
                 </div>
                 <button
                   onClick={goBack}
-                  className="bg-white  hover:bg-slate-600 hover:text-white shadow font-medium px-5 py-2 text-2xl mb-10 mt-10 self-start text-center rounded"
+                  className="bg-black  hover:bg-slate-600 text-white shadow font-medium px-5 py-2 text-2xl mb-10 mt-10 self-start text-center rounded"
                 >
                   <FaBackward />
                 </button>
