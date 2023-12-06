@@ -22,7 +22,7 @@ const SignUp = () => {
     const formData = new FormData();
     formData.append('user[email]', email);
     formData.append('user[name]', name);
-    formData.append('user[role]', 'admin');
+    formData.append('user[role]', 'client');
     formData.append('user[password]', password);
     formData.append('user[avatar]', avatar);
 
