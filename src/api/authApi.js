@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const authLog = createApi({
   reducerPath: 'authLog',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://rent-a-car-backend-production-d292.up.railway.app' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://rent-a-car-backend-production-d292.up.railway.app' }),
   endpoints: (builder) => ({
     getBrands: builder.query({
       query: (authToken) => (
