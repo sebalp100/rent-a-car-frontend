@@ -28,7 +28,7 @@ const SignUp = () => {
 
     axios
       .post(
-        `http://rent-a-car-backend-production-d292.up.railway.app/signup`,
+        `https://rent-a-car-backend-production-d292.up.railway.app/signup`,
         formData,
         {
           headers: {
