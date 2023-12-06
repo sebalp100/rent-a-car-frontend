@@ -52,7 +52,7 @@ const CarListByBrand = ({ user }) => {
                       )}
                     </div>
                     <div className="card-content">
-                      <h3>{car.model}</h3>{' '}
+                      <h2 className="font-medium">{car.model}</h2>{' '}
                       <h3 className="text-[#d60000] font-medium text-lg">
                         ${car.price}
                       </h3>{' '}
