@@ -48,7 +48,7 @@ const Dashboard = ({ user }) => {
   return (
     <div className="bg-[#fdf9f9] min-h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu} user={user}></SideNav>
-      <div className="md:ml-[16.68vw]  md:w-10/12 bg-agent">
+      <div className="lg:ml-[16.68vw]  lg:w-10/12 bg-agent">
         <TopBar email={email}></TopBar>
         <div className="ml-[8vw]">
           <h1 className="ml-[-8vw] pb-10 text-3xl pt-10 text-center  font-medium">
