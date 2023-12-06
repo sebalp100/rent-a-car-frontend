@@ -85,7 +85,9 @@ const AddCar = ({ user }) => {
       <SideNav sidebar={sidebar} closeMenu={closeMenu} user={user}></SideNav>
       <div className="lg:ml-[16.68vw] flex flex-col flex-grow lg:w-10/12 bg-agent">
         <Toaster />
-        <TopBar email={email}></TopBar>
+        <TopBar sidebar={sidebar}
+          showMenu={showMenu}
+          closeMenu={closeMenu}></TopBar>
         <div className="w-full flex flex-col items-center h-[92vh] justify-center">
           <h1 className="mb-[1rem] text-3xl font-bold">ADD A NEW CAR</h1>
           <div className="flex flex-col justify-center w-full items-center">

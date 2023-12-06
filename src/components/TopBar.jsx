@@ -22,10 +22,10 @@ const TopBar = (props) => {
   const profilePic = decryptedUserData?.avatar_url;
 
   return (
-    <div className="flex bg-white justify-between items-center h-14 w-full shadow">
+    <div className="flex bg-white justify-between lg:justify-end items-center h-14 w-full shadow">
       <button
         onClick={props.showMenu}
-        className="flex md:hidden ml-3 mt-[2.9vh]"
+        className="flex items-center lg:hidden ml-3 mt-[2.9vh]"
       >
         <FaBars className="open-button" />
       </button>
