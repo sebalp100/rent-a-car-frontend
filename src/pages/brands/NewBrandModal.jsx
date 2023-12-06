@@ -15,13 +15,17 @@ const NewBrandModal = ({ token, open2, onClose, refetch }) => {
     formData.append('brand[photo]', photo2);
 
     axios
-      .post(`http://localhost:3001/brands`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-        mode: 'cors',
-      })
+      .post(
+        `http://rent-a-car-backend-production-d292.up.railway.app/brands`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+          mode: 'cors',
+        }
+      )
       .then(() => {
         console.log('Brand added succesfully');
         setPhoto2(null);

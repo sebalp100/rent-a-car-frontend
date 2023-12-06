@@ -36,7 +36,7 @@ const SideNav = (props) => {
       <Link to="/">
         <img
           className="pb-4 pt-[2.8vh] w-[9vw] mb-9"
-          src="http://localhost:5173/images/Logorent.png"
+          src="http://rent-a-car-backend-production-d292.up.railway.app/images/Logorent.png"
           alt="Logo"
         />
       </Link>
