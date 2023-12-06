@@ -83,7 +83,7 @@ const AddCar = ({ user }) => {
   return (
     <div className="flex bg-[#fdf9f9] min-h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu} user={user}></SideNav>
-      <div className="md:ml-[16.68vw] flex flex-col flex-grow md:w-10/12 bg-agent">
+      <div className="lg:ml-[16.68vw] flex flex-col flex-grow lg:w-10/12 bg-agent">
         <Toaster />
         <TopBar email={email}></TopBar>
         <div className="w-full flex flex-col items-center h-[92vh] justify-center">
