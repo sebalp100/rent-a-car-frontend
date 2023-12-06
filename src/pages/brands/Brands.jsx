@@ -104,7 +104,7 @@ const Brands = ({ user }) => {
           return (
             <div className="flex gap-1">
               <img
-                src={`http://rent-a-car-backend-production-d292.up.railway.app/${carPic}`}
+                src={`https://rent-a-car-backend-production-d292.up.railway.app/${carPic}`}
                 alt={`${carName} Logo`}
                 className="w-16 h-16 object-contain"
               />

@@ -60,13 +60,17 @@ const AddCar = ({ user }) => {
     formData.append('car[photo]', photo);
 
     axios
-      .post(`http://localhost:3001/cars`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-        mode: 'cors',
-      })
+      .post(
+        `https://rent-a-car-backend-production-d292.up.railway.app/cars`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+          mode: 'cors',
+        }
+      )
       .then(() => {
         toast.success('Car added succesfully');
       })

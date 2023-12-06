@@ -16,7 +16,7 @@ const NewBrandModal = ({ token, open2, onClose, refetch }) => {
 
     axios
       .post(
-        `http://rent-a-car-backend-production-d292.up.railway.app/brands`,
+        `https://rent-a-car-backend-production-d292.up.railway.app/brands`,
         formData,
         {
           headers: {
