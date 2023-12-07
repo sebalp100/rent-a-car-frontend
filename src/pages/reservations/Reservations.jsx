@@ -52,13 +52,17 @@ const Reservations = ({ user }) => {
 
     const handleCancel = () => {
       axios
-        .put(`http://localhost:3001/rentals/${id}`, payload, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          mode: 'cors',
-        })
+        .put(
+          `https://rent-a-car-backend-production-d292.up.railway.app/rentals/${id}`,
+          payload,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            mode: 'cors',
+          }
+        )
         .then(() => {
           toast.success('Reservation canceled succesfully');
           refetch();
@@ -224,9 +228,11 @@ const Reservations = ({ user }) => {
     <div className="flex bg-[#fdf9f9] min-h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu} user={user}></SideNav>
       <div className="lg:ml-[16.68vw] flex flex-col flex-grow lg:w-10/12 bg-agent">
-        <TopBar sidebar={sidebar}
+        <TopBar
+          sidebar={sidebar}
           showMenu={showMenu}
-          closeMenu={closeMenu}></TopBar>
+          closeMenu={closeMenu}
+        ></TopBar>
         <div className="pt-14 px-10 w-[100vw] lg:w-full">
           <Toaster />
           <ThemeProvider theme={tableTheme}>
