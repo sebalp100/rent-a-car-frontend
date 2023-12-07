@@ -74,6 +74,7 @@ const Dashboard = ({ user }) => {
                             src={`https://rent-a-car-backend-production-d292.up.railway.app/${car.photo_url}`}
                             alt="Card Image"
                             className="card-image"
+                            loading="progressive"
                           />
                         ) : (
                           <div className="no-image-placeholder">
