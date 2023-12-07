@@ -42,9 +42,11 @@ const CarDetails = ({ user }) => {
     <div className="flex bg-[#fdf9f9] min-h-[100vh]">
       <SideNav sidebar={sidebar} closeMenu={closeMenu} user={user}></SideNav>
       <div className="lg:ml-[16.68vw] flex flex-col flex-grow lg:w-10/12 bg-agent">
-        <TopBar sidebar={sidebar}
+        <TopBar
+          sidebar={sidebar}
           showMenu={showMenu}
-          closeMenu={closeMenu}></TopBar>
+          closeMenu={closeMenu}
+        ></TopBar>
         <Toaster />
         <div className="flex justify-center content-center pt-7 pb-7">
           <div className="flex flex-wrap justify-center gap-10">
@@ -116,19 +118,14 @@ const CarDetails = ({ user }) => {
                     <button
                       className="bg-[#d60000] mt-10 py-2 px-2 text-white hover:bg-red-700 disabled:bg-gray-300"
                       onClick={() => handleAddModal()}
-                      disabled={details.reserved}
                     >
-                      {details.reserved ? (
-                        <p>Not Available</p>
-                      ) : (
-                        <p>Rent Now</p>
-                      )}
+                      <p>Rent Now</p>
                     </button>
                   </div>
                 </div>
                 <button
                   onClick={goBack}
-                  className="bg-black  hover:bg-slate-600 text-white shadow font-medium px-5 py-2 text-2xl mb-10 mt-10 self-start text-center rounded"
+                  className="bg-black  hover:bg-slate-600 text-white shadow font-medium px-5 py-2 text-2xl mb-2 mt-10 self-start text-center rounded"
                 >
                   <FaBackward />
                 </button>
