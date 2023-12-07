@@ -68,7 +68,7 @@ const Reservations = ({ user }) => {
           refetch();
         })
         .catch((error) => {
-          toast.error(error.data.message);
+          toast.error(error.data.error);
         });
     };
 
@@ -116,6 +116,11 @@ const Reservations = ({ user }) => {
       {
         accessorKey: 'car.year',
         header: 'Year',
+        size: 70,
+      },
+      {
+        accessorKey: 'user_id',
+        header: 'User ID',
         size: 70,
       },
       {
@@ -190,14 +195,17 @@ const Reservations = ({ user }) => {
         Cell: ({ row }) => {
           const carID = row.getValue('id');
           const statusRow = row.getValue('status');
+          const users = row.getValue('user_id');
 
           return (
             <div className="flex justify-center h-7">
               {statusRow != 'completed' && statusRow != 'canceled' && (
                 <div title="Cancel">
-                  <button onClick={() => handleSubmit(carID)}>
-                    <IoCloseCircleOutline className="text-3xl  text-red-600 cursor-pointer"></IoCloseCircleOutline>
-                  </button>
+                  {userId === users && (
+                    <button onClick={() => handleSubmit(carID)}>
+                      <IoCloseCircleOutline className="text-3xl  text-red-600 cursor-pointer"></IoCloseCircleOutline>
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -248,7 +256,7 @@ const Reservations = ({ user }) => {
               }}
               initialState={{
                 density: 'compact',
-                columnVisibility: { id: false },
+                columnVisibility: { id: false, user_id: false },
                 sorting: [
                   {
                     id: 'id',
