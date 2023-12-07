@@ -2,7 +2,6 @@ import { BsBell } from 'react-icons/bs';
 import { FaBars, FaUserCircle } from 'react-icons/fa';
 import CryptoJS from 'crypto-js';
 import { Link } from 'react-router-dom';
-import { Badge } from '@mui/material';
 
 const TopBar = (props) => {
   const decryptData = (encryptedData, key) => {
@@ -49,9 +48,7 @@ const TopBar = (props) => {
         ) : (
           <FaUserCircle className="text-3xl"></FaUserCircle>
         )}
-        <Badge badgeContent={1} color="success">
-          <BsBell className="text-lg"></BsBell>
-        </Badge>
+        <BsBell className="text-lg"></BsBell>
       </div>
     </div>
   );
