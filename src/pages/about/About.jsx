@@ -7,7 +7,7 @@ const About = () => {
   return (
     <div className="min-h-[100vh] flex flex-col justify-between bg-[#fdf9f9] w-full">
       <NavBar></NavBar>
-      <div className="flex flex-col items-center flex-grow">
+      <section className="flex flex-col items-center flex-grow">
         <h3 className="text-2xl font-medium mb-10 pt-10">Why Us?</h3>
         <p className="px-[10%] pb-10">
           Welcome to Rent a Car, where exceptional journeys begin. Discover a
@@ -55,7 +55,7 @@ const About = () => {
             }
           />
         </div>
-      </div>
+      </section>
       <Footer />
     </div>
   );
