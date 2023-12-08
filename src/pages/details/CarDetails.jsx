@@ -57,10 +57,10 @@ const CarDetails = ({ user }) => {
             ) : (
               <div className="flex flex-col px-10">
                 <div
-                  className="flex gap-10 mt-10 justify-center "
+                  className="flex flex-col lg:flex-row gap-10 mt-10 justify-center "
                   key={details.id}
                 >
-                  <div className="w-[50%]">
+                  <div className="lg:w-[50%]">
                     <img
                       src={`https://rent-a-car-backend-production-d292.up.railway.app${details.photo_url}`}
                       alt={`${details.model} Picture`}
@@ -90,7 +90,7 @@ const CarDetails = ({ user }) => {
                     </div>
                   </div>
 
-                  <div className="w-[50%] flex flex-col items-start">
+                  <div className="lg:w-[50%] flex flex-col items-start">
                     <div className="pb-4 items-center flex justify-between w-full">
                       <h3 className="text-3xl font-medium">
                         {details.model} ({details.year})
