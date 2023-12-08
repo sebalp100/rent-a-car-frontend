@@ -66,8 +66,8 @@ const CarDetails = ({ user }) => {
                       alt={`${details.model} Picture`}
                       className="shadow"
                     />
-                    <div className="flex pt-6 text-lg justify-evenly">
-                      <div className="flex flex-col sm:flex-row justify-between">
+                    <div className="flex pt-6 text-lg justify-between">
+                      <div className="flex flex-col sm:flex-row sm:gap-[45%] justify-between">
                         <h3
                           className="flex gap-1 items-center"
                           title={`Transmission: ${details.engine}`}
@@ -80,7 +80,7 @@ const CarDetails = ({ user }) => {
                           {details.cc}
                         </h3>
                       </div>
-                      <div className="flex flex-col sm:flex-row justify-between">
+                      <div className="flex flex-col sm:flex-row sm:gap-[45%] justify-between">
                         <h3
                           className="flex gap-1 items-center"
                           title="Top Speed"
