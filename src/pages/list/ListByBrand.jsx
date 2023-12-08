@@ -39,7 +39,7 @@ const CarListByBrand = ({ user }) => {
             ) : (
               brandsById?.map((car) => (
                 <Link key={car.id} to={`/list/car/${car.id}`}>
-                  <div key={car.id} className="card bg-white shadow-md">
+                  <div key={car.id} className="card2 bg-white shadow-md">
                     <div className="image-container">
                       {car.photo_url ? (
                         <img
