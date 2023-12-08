@@ -23,7 +23,7 @@ const About = () => {
               'Every drive becomes a story and every destination is a new experience.'
             }
             src={
-              'https://static.vecteezy.com/system/resources/previews/003/582/352/mp4/aerial-view-white-car-travels-in-beautiful-free-video.mp4'
+              'images/aerial-view-white-car-travels-in-beautiful-free-video.mp4'
             }
           />
           <Card
@@ -31,7 +31,7 @@ const About = () => {
             h3={'Curated selection'}
             p={'Sleek sedans, powerful SUVs, and luxurious sports cars.'}
             src={
-              'https://static.vecteezy.com/system/resources/previews/006/619/182/mp4/aerial-new-car-storage-parking-lot-showing-imported-new-vehicles-or-ready-to-export-new-automobiles-storage-facility-car-industry-for-export-all-over-the-world-market-for-car-sales-free-video.mp4'
+              'images/aerial-new-car-storage-parking-lot-showing-imported-new-vehicles-or-ready-to-export-new-automobiles-storage-facility-car-industry-for-export-all-over-the-world-market-for-car-sales-free-video.mp4'
             }
           />
           <Card
@@ -41,7 +41,7 @@ const About = () => {
               'Seamless and user-friendly online booking for a stress-free rental process.'
             }
             src={
-              'https://static.vecteezy.com/system/resources/previews/023/205/073/mp4/lease-rental-car-sell-buy-dealership-manager-send-car-keys-to-the-new-owner-sales-loan-credit-financial-rent-vehicle-insurance-renting-seller-dealer-installment-car-care-business-free-video.mp4'
+              'images/lease-rental-car-sell-buy-dealership-manager-send-car-keys-to-the-new-owner-sales-loan-credit-financial-rent-vehicle-insurance-renting-seller-dealer-installment-car-care-business-free-video.mp4'
             }
           />
           <Card
